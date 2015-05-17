@@ -9,6 +9,9 @@ public class Piece : MonoBehaviour {
 	private bool isFixed = false;
 	private float z = 1f;
 	private float tapEndAt;
+	private bool isTouching = false;
+	private Vector3 lastValidPosition = Vector3.zero;
+	private float yPositionBias = - 40f;
 
 	void Start () {
 
@@ -34,17 +37,41 @@ public class Piece : MonoBehaviour {
 	void OnMouseDrag()
 	{
 		if (canDrag == false ) return;
-		//TODO check rest time
 
-		transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, z));
+		//TODO check rest time
+		if (isTouching == false )
+		{
+			lastValidPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z);
+		}
+
+		transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z));
 	}
 
 	void OnMouseUp()
 	{
+		if (canDrag == false ) return;
+
+		transform.position = Camera.main.ScreenToWorldPoint(lastValidPosition);
 		canDrag = false;
 		tapEndAt = Time.time;
 
 		GetComponent<Rigidbody2D>().isKinematic = false;
 		GetComponent<Collider2D>().isTrigger = false;
+	}
+
+	void OnTriggerEnter2D (Collider2D other)
+	{
+		if(other.tag == "Piece")
+		{
+			isTouching = true;
+		}
+	}
+
+	void OnTriggerExit2D (Collider2D other)
+	{
+		if(other.tag == "Piece")
+		{
+			isTouching = false;
+		}
 	}
 }
