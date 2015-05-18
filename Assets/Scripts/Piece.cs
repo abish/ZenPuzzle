@@ -11,10 +11,10 @@ public class Piece : MonoBehaviour {
 	private float tapEndAt;
 	private bool isTouching = false;
 	private Vector3 lastValidPosition = Vector3.zero;
-	private float yPositionBias = - 40f;
+	private float yPositionBias = - 50f;
 
 	void Start () {
-
+		yPositionBias = - Screen.height * 0.1f;
 	}
 
 	// Update is called once per frame

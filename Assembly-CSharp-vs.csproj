@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\FallCheck.cs" />
      <Compile Include="Assets\Scripts\Piece.cs" />
      <Compile Include="Assets\Scripts\PieceSpawner.cs" />
+     <Compile Include="Assets\Scripts\Pieces.cs" />
      <Compile Include="Assets\Scripts\Singleton.cs" />
      <Compile Include="Assets\Scripts\UnityAdsManager.cs" />
      <None Include="Assets\Plugins\Android\unityads\proguard-project.txt" />
