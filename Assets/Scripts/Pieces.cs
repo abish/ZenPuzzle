@@ -18,8 +18,6 @@ public class Pieces : Singleton<Pieces> {
 	};
 	private string defaultPiece = "Stick";
 
-	private int weightSum = 0;
-
 	private Dictionary<string, GameObject> _prefabCache;
 	public void Awake ()
 	{
@@ -28,13 +26,14 @@ public class Pieces : Singleton<Pieces> {
 
 	public static string LotPieceName ()
 	{
+	    float weightSum = 0f;
         Pieces instance = Pieces.Instance as Pieces;
 		foreach ( int weight in instance.weightMap.Values )
 		{
-			instance.weightSum += weight;
+			weightSum += (float)weight;
 		}
 
-		float rnd = Random.Range(0, (float)instance.weightSum); 
+		float rnd = Random.Range(0, weightSum); 
 		foreach( KeyValuePair<string, int> kvp in instance.weightMap )
 		{
 			if (rnd <= kvp.Value)
