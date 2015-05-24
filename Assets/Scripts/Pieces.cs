@@ -50,13 +50,19 @@ public class Pieces : Singleton<Pieces> {
 
 	public static GameObject LotPiece ()
 	{
+		string pieceName = LotPieceName();
+        return GetPiecePrefab(pieceName);
+	}
+
+    public static GameObject GetPiecePrefab (string pieceName)
+    {
+        Debug.Log(pieceName);
         GameObject result = null;
 
         Pieces instance = Pieces.Instance as Pieces;
         if (instance == null) return result;
 
-		string pieceName = LotPieceName();
-        Debug.Log(pieceName);
+        // TODO validation
         if (!instance._prefabCache.TryGetValue(pieceName, out result))
         {
             result = Resources.Load("Prefabs/Piece/" + pieceName) as GameObject;;
@@ -65,7 +71,7 @@ public class Pieces : Singleton<Pieces> {
         }
 
         return result;
-	}
+    }
 
     public override void OnDestroy()
     {

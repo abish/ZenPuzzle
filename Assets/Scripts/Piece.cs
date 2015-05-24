@@ -22,13 +22,11 @@ public class Piece : MonoBehaviour {
 		if (isFixed == false && canDrag == false)
 		{
 			//TODO magic number
-			if (GetComponent<Rigidbody2D>().velocity.magnitude < 1 && tapEndAt + 3 < Time.time)
+			if (GetComponent<Rigidbody2D>().velocity.magnitude < 1 && tapEndAt + 2 < Time.time)
 			{
 				isFixed = true;
-				// spawn next piece
-				GameObject spawner = GameObject.FindWithTag("Spawner");
-				spawner.GetComponent<PieceSpawner>().Spawn();
-				Debug.Log ("isFixed");
+
+				GameManager.Instance.GoToNextTurn();
 			}
 
 		}
