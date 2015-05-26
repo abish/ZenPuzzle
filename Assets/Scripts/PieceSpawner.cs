@@ -11,11 +11,12 @@ public class PieceSpawner : MonoBehaviour {
 		GameObject piecePrefab = Pieces.GetPiecePrefab(pieceName);
 		Debug.Log (piecePrefab);
 		GameObject Piece = Instantiate(piecePrefab, transform.position, Quaternion.identity) as GameObject;
-		Rigidbody2D rigidbody2D = Piece.GetComponent<Rigidbody2D>();
-		Collider2D collider = Piece.GetComponent<Collider2D>();
 		// spawned piece shouldn't fall
+		Rigidbody2D rigidbody2D = Piece.GetComponent<Rigidbody2D>();
 		rigidbody2D.isKinematic = true;
-		collider.isTrigger = true;
+
+		Collider2D[] colliders  = Piece.GetComponents<Collider2D>();
+		foreach (Collider2D col in colliders) col.isTrigger=true;
 
 		Debug.Log("Spawn!");
 	}

@@ -6,15 +6,24 @@ public class Pieces : Singleton<Pieces> {
 
 	// TODO create piece name accessor if necessary
 	public string[] pieceList = new string[] {
-		"Stick", "Cross", "Circle", "Zigzag", "Square"
+		//"Stick", "Cross", "Circle", "Zigzag", "Square", "Pawn"
+		"Zen1", "Zen2", "Zen3", "Zen4", "Zen5", "Zen6", "Zen7"
 	};
 
-	public Dictionary<string,int> weightMap = new Dictionary<string,int>() {
-		{"Stick", 1},
-		{"Cross", 1},
-		{"Circle", 1},
-		{"Zigzag", 1},
-		{"Square", 1},
+	public Dictionary<string,float> weightMap = new Dictionary<string,float>() {
+		{"Zen1",  2f},
+		{"Zen2",  2f},
+		{"Zen3",  2f},
+		{"Zen4",  2f},
+		{"Zen5",  2f},
+		{"Zen6",  2f},
+		{"Zen7",  2f},
+		//{"Stick",  2f},
+		//{"Cross",  1f},
+		//{"Circle", 1f},
+		//{"Zigzag", 2f},
+		//{"Square", 1f},
+		//{"Pawn",   1f},
 	};
 	private string defaultPiece = "Stick";
 
@@ -28,13 +37,13 @@ public class Pieces : Singleton<Pieces> {
 	{
 	    float weightSum = 0f;
         Pieces instance = Pieces.Instance as Pieces;
-		foreach ( int weight in instance.weightMap.Values )
+		foreach ( float weight in instance.weightMap.Values )
 		{
-			weightSum += (float)weight;
+			weightSum += weight;
 		}
 
 		float rnd = Random.Range(0, weightSum); 
-		foreach( KeyValuePair<string, int> kvp in instance.weightMap )
+		foreach( KeyValuePair<string, float> kvp in instance.weightMap )
 		{
 			if (rnd <= kvp.Value)
 			{

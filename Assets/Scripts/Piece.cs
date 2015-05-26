@@ -54,7 +54,8 @@ public class Piece : MonoBehaviour {
 		tapEndAt = Time.time;
 
 		GetComponent<Rigidbody2D>().isKinematic = false;
-		GetComponent<Collider2D>().isTrigger = false;
+		Collider2D[] colliders  = GetComponents<Collider2D>();
+		foreach (Collider2D col in colliders) col.isTrigger=false;
 	}
 
 	void OnTriggerEnter2D (Collider2D other)
