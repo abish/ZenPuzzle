@@ -4,15 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ground
-  - Crate
-  - Enemy
-  - Wall
-  - Obstacle
-  - Bullet
-  - BombPickup
-  - ExplosionFX
-  - HealthBar
   - Piece
   - Spawner
   layers:
@@ -24,11 +15,11 @@ TagManager:
   - UI
   - 
   - 
-  - Bombs
-  - Player
-  - Enemies
-  - Pickups
-  - Ground
+  - Background
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -49,14 +40,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1535931219
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Default
     uniqueID: 3363470833
-    locked: 0
-  - name: Background
-    uniqueID: 1535931219
     locked: 0
   - name: Character
     uniqueID: 2511236001

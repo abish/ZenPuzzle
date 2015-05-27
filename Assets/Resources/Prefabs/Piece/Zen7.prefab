@@ -39,7 +39,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 196552}
   m_Mass: 1
   m_LinearDrag: 1
-  m_AngularDrag: 10
+  m_AngularDrag: 50
   m_GravityScale: .400000006
   m_FixedAngle: 0
   m_IsKinematic: 0
@@ -53,7 +53,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 196552}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 60153cd0847e84471b3b4ee8149116c8, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}

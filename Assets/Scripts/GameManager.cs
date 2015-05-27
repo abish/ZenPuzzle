@@ -43,6 +43,9 @@ public class GameManager : Singleton<GameManager> {
 		return isPlayerTurn;
 	}
 
+	public int CurrentTurn () {
+		return this.currentTurn;
+	}
 	// TODO rewrite with get,set
 	public string NextPlayerPieceName () {
 		return this.nextPlayerPieceName;
