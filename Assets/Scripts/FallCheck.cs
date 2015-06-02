@@ -9,14 +9,11 @@ public class FallCheck : MonoBehaviour
 		if(other.tag == "Piece")
 		{
 
-			// TODO: GameOverFlg 
-
 			// Destroy
 			Destroy(other.gameObject);
 			Debug.Log ("GameOver");
 
-			UnityAdsManager unityAdsManager = UnityAdsManager.GetInctance();
-			unityAdsManager.ShowAds();
+			GameManager.Instance.GoToGameOver();
 		}
 	}
 }

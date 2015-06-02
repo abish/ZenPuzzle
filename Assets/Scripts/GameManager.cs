@@ -6,6 +6,8 @@ public class GameManager : Singleton<GameManager> {
 
 	[SerializeField]
 	private int currentTurn = 1;
+	private bool isGameOver      = false;
+	private bool isInitialized   = false;
 	private bool isPlayerGoFirst = true;// flg which player goes first
 	[SerializeField]
 	private string nextPlayerPieceName = null;
@@ -20,7 +22,22 @@ public class GameManager : Singleton<GameManager> {
 		Init ();
 	}
 
+    void Update ()
+    {
+        if (this.isGameOver == false && this.isInitialized == false)
+        {
+            Init();
+        }
+    }
+
+    // Note: If gameObject is not found (in case scene is not fully loaded), this function is called multiple times
 	public void Init () {
+        this.currentTurn = 1;
+
+		// check if gameObject exists
+		GameObject spawner = GameObject.FindWithTag("Spawner");
+        if (spawner == null) return;
+
 		// Lot Initial Piece
 		this.currentPieceName    = Pieces.LotPieceName();
 		this.nextPlayerPieceName = Pieces.LotPieceName();
@@ -29,11 +46,13 @@ public class GameManager : Singleton<GameManager> {
 		// Lot first player
 
 		// Instantiate first piece
-		GameObject spawner = GameObject.FindWithTag("Spawner");
 		spawner.GetComponent<PieceSpawner>().Spawn(this.currentPieceName);
 
 		// prepare unityads
 		UnityAdsManager unityAdsManager = UnityAdsManager.GetInctance();
+
+        // initialize flg
+        this.isInitialized = true;
 	}
 
 	public bool IsPlayerTurn () {
@@ -57,7 +76,8 @@ public class GameManager : Singleton<GameManager> {
 		return this.currentPieceName;
 	}
 
-	public void GoToNextTurn () {
+	public void GoToNextTurn ()
+    {
 		//  set Current Piece for next turn
 		bool isPlayerTurn = IsPlayerTurn ();
 		this.currentPieceName = (isPlayerTurn) ? nextEnemyPieceName : nextPlayerPieceName;
@@ -82,5 +102,24 @@ public class GameManager : Singleton<GameManager> {
 		// next turn has come
 		currentTurn++;
 	}
-	
+
+    public void GoToGameOver ()
+    {
+        this.isGameOver    = true;
+        this.isInitialized = false;
+		Application.LoadLevel("Result");
+    }
+
+    public void GoToGameStart ()
+    {
+        this.isGameOver = false;
+
+		Application.LoadLevel("MainGame");
+        Init();
+    }
+
+    public void ExecPlayerPass ()
+    {
+        this.nextPlayerPieceName = Pieces.LotPieceName();
+    }
 }

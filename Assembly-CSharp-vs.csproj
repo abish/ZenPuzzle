@@ -47,13 +47,22 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CurrentLabelView.cs" />
+     <Compile Include="Assets\Scripts\DateUtil.cs" />
      <Compile Include="Assets\Scripts\EnemyNextPieceImageView.cs" />
+     <Compile Include="Assets\Scripts\ExecPassButton.cs" />
      <Compile Include="Assets\Scripts\FallCheck.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\PassCountManager.cs" />
      <Compile Include="Assets\Scripts\Piece.cs" />
      <Compile Include="Assets\Scripts\PieceSpawner.cs" />
      <Compile Include="Assets\Scripts\Pieces.cs" />
      <Compile Include="Assets\Scripts\PlayerNextPieceImageView.cs" />
+     <Compile Include="Assets\Scripts\Result\AdsButton.cs" />
+     <Compile Include="Assets\Scripts\Result\DebugPassButton.cs" />
+     <Compile Include="Assets\Scripts\Result\LastScoreView.cs" />
+     <Compile Include="Assets\Scripts\Result\PassCountView.cs" />
+     <Compile Include="Assets\Scripts\Result\ResetPlayerPrefsButton.cs" />
+     <Compile Include="Assets\Scripts\Result\StartGameButton.cs" />
      <Compile Include="Assets\Scripts\ScoreView.cs" />
      <Compile Include="Assets\Scripts\Singleton.cs" />
      <Compile Include="Assets\Scripts\UnityAdsManager.cs" />

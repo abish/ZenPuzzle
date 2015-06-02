@@ -22,7 +22,7 @@ public class Piece : MonoBehaviour {
 		if (isFixed == false && canDrag == false)
 		{
 			//TODO magic number
-			if (GetComponent<Rigidbody2D>().velocity.magnitude < 1 && tapEndAt + 2 < Time.time)
+			if (GetComponent<Rigidbody2D>().velocity.magnitude == 0 && tapEndAt + 1 < Time.time)
 			{
 				isFixed = true;
 
