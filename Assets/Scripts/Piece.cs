@@ -13,6 +13,13 @@ public class Piece : MonoBehaviour {
 	private Vector3 lastValidPosition = Vector3.zero;
 	private float yPositionBias = - 50f;
 
+	// sound
+	private int minVelocityForSound = 1;
+	private float playSoundInterval = 0.5f;
+	private float lastPlaySoundAt = 0f;
+	public AudioClip hitSound;
+	private AudioSource _audio;
+
 	void Start () {
 		yPositionBias = - Screen.height * 0.1f;
 	}
@@ -71,6 +78,25 @@ public class Piece : MonoBehaviour {
 		if(other.tag == "Piece")
 		{
 			isTouching = false;
+		}
+	}
+
+	void OnCollisionEnter2D (Collision2D other)
+	{
+		if(other.gameObject.tag == "Piece" && hitSound != null)
+		{
+			if (_audio == null) _audio = GetComponent<AudioSource>();
+
+			if (_audio != null
+			    && Time.time > lastPlaySoundAt + playSoundInterval
+			    && GetComponent<Rigidbody2D>().velocity.magnitude >= minVelocityForSound)
+			{
+		Debug.Log ("play!");
+				_audio.PlayOneShot(hitSound);
+				lastPlaySoundAt = Time.time;
+			}
+
+		Debug.Log (_audio);
 		}
 	}
 }
