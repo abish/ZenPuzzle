@@ -11,13 +11,13 @@ public class Pieces : Singleton<Pieces> {
 	};
 
 	public Dictionary<string,float> weightMap = new Dictionary<string,float>() {
-		{"Zen1",  2f},
-		{"Zen2",  2f},
-		{"Zen3",  2f},
-		{"Zen4",  2f},
-		{"Zen5",  2f},
-		{"Zen6",  2f},
-		{"Zen7",  2f},
+		{"Zen1",  20f},
+		{"Zen2",  20f},
+		{"Zen3",  20f},
+		{"Zen4",  20f},
+		{"Zen5",  5f},
+		{"Zen6",  5f},
+		{"Zen7",  5f},
 		//{"Stick",  2f},
 		//{"Cross",  1f},
 		//{"Circle", 1f},

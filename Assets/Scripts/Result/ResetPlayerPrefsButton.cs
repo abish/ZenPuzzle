@@ -9,5 +9,7 @@ public class ResetPlayerPrefsButton : MonoBehaviour {
         //PlayerPrefs.DeleteAll();
         PlayerPrefs.DeleteKey("passCountRecoveredAt");
 		PassCountManager.Instance.SetDirty();
+		ScoreManager.Instance.DeleteAll();
+		ScoreManager.Instance.Reload();
 	}
 }

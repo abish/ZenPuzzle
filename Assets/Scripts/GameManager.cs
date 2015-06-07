@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameManager : Singleton<GameManager> {
 
 	[SerializeField]
-	private int currentTurn = 1;
+	private int currentTurn = 1;// == score
 	private bool isGameOver      = false;
 	private bool isInitialized   = false;
 	private bool isPlayerGoFirst = true;// flg which player goes first
@@ -105,6 +105,10 @@ public class GameManager : Singleton<GameManager> {
 
     public void GoToGameOver ()
     {
+        // return if isGameOver flg is already true
+        if (this.isGameOver == true) return;
+
+        ScoreManager.Instance.UpdateScore(this.currentTurn);
         this.isGameOver    = true;
         this.isInitialized = false;
 		Application.LoadLevel("Result");

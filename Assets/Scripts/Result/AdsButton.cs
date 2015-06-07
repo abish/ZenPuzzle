@@ -12,6 +12,12 @@ public class AdsButton : MonoBehaviour {
 	public void ShowAds ()
 	{
 		UnityAdsManager unityAdsManager = UnityAdsManager.GetInctance();
-		unityAdsManager.ShowAds();
+		unityAdsManager.ShowAds(null, RecoverPassCount);
 	}
+
+    private void RecoverPassCount ()
+    {
+        Debug.Log("RecoverPassCount");
+        PassCountManager.Instance.RecoverPassCount();
+    }
 }

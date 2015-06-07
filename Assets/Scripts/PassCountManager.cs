@@ -67,12 +67,13 @@ public class PassCountManager : Singleton<PassCountManager> {
         int now = DateUtil.GetEpochTime();
         int passCountRecoveredAt = this.GetPassCountRecoveredAt();
         // initialize
-        if (passCountRecoveredAt == 0)
+        if (passCountRecoveredAt < now)
             passCountRecoveredAt = now;
 
         passCountRecoveredAt = passCountRecoveredAt + this.passCountRecoverInterval;
         this._passCountRecoveredAt = passCountRecoveredAt;
         PlayerPrefs.SetInt("passCountRecoveredAt", passCountRecoveredAt);
+        PlayerPrefs.Save();
         return true;
     }
 
@@ -80,4 +81,25 @@ public class PassCountManager : Singleton<PassCountManager> {
     {
         this.isDirty = true;
     }
+
+    public void RecoverPassCount ()
+    {
+        this.RecoverPassCount(1);
+    }
+    public void RecoverPassCount (int count)
+    {
+        if (count <= 0)
+        {
+            Debug.LogWarning("invalid recover count" + count);
+            return;
+        }
+
+        int restTimeToRecoverAll = this.RestTimeToRecoverAll();
+        if (restTimeToRecoverAll <= 0)
+            return;
+
+        this._passCountRecoveredAt = this._passCountRecoveredAt - this.passCountRecoverInterval * count;
+        PlayerPrefs.SetInt("passCountRecoveredAt", this._passCountRecoveredAt);
+    }
+
 }
