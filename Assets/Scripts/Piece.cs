@@ -11,6 +11,7 @@ public class Piece : MonoBehaviour {
 	private float tapEndAt;
 	private bool isTouching = false;
 	private Vector3 lastValidPosition = Vector3.zero;
+    //distance between tap point and visible position of piece 
 	private float yPositionBias = - 50f;
 
 	// sound
@@ -20,7 +21,14 @@ public class Piece : MonoBehaviour {
 	public AudioClip hitSound;
 	private AudioSource _audio;
 
+    // threshold to move camera
+    private float yThresholdViewport = 0.5f;
+    private float yThresholdPosition;
+
 	void Start () {
+        Vector3 positionDiff = Camera.main.ViewportToWorldPoint(new Vector3(0, yThresholdViewport, 0));
+        yThresholdPosition = positionDiff.y;
+
 		yPositionBias = - Screen.height * 0.1f;
 	}
 
@@ -32,6 +40,10 @@ public class Piece : MonoBehaviour {
 			if (GetComponent<Rigidbody2D>().velocity.magnitude == 0 && tapEndAt + 1 < Time.time)
 			{
 				isFixed = true;
+
+                // move camera and background image if piece is high enough
+                if (transform.position.y > yThresholdPosition)
+                    Camera.main.GetComponent<CameraController>().MoveUpward();
 
 				GameManager.Instance.GoToNextTurn();
 			}

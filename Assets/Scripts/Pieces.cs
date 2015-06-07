@@ -65,7 +65,7 @@ public class Pieces : Singleton<Pieces> {
 
     public static GameObject GetPiecePrefab (string pieceName)
     {
-        Debug.Log(pieceName);
+        //Debug.Log(pieceName);
         GameObject result = null;
 
         Pieces instance = Pieces.Instance as Pieces;

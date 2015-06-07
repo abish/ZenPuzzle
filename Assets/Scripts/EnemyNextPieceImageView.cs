@@ -14,7 +14,7 @@ public class EnemyNextPieceImageView : MonoBehaviour {
 
 		// update image if changed
 		GameObject piecePrefab = Pieces.GetPiecePrefab(pieceName);
-		Debug.Log (piecePrefab);
+		//Debug.Log (piecePrefab);
 		if (piecePrefab == null) return;
 
 		_pieceName = pieceName;

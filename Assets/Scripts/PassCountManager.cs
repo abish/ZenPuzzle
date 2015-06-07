@@ -46,7 +46,6 @@ public class PassCountManager : Singleton<PassCountManager> {
         if (restTimeToRecoverAll <= 0)
             return this.maxPassCount;
 
-        Debug.Log(restTimeToRecoverAll);
         int recoveredPassCount = (int)(this.maxPassCount - (float)restTimeToRecoverAll / this.passCountRecoverInterval);
         if (recoveredPassCount <= 0)
             return 0;
