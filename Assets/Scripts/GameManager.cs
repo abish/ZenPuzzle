@@ -49,10 +49,13 @@ public class GameManager : Singleton<GameManager> {
 		spawner.GetComponent<PieceSpawner>().Spawn(this.currentPieceName);
 
 		// prepare unityads
-		UnityAdsManager unityAdsManager = UnityAdsManager.GetInctance();
+		UnityAdsManager unityAdsManager = UnityAdsManager.GetInstance();
 
         // initialize flg
         this.isInitialized = true;
+
+        // TODO
+        SocialPlatformsManager.Instance.Init();
 	}
 
 	public bool IsPlayerTurn () {
@@ -108,6 +111,7 @@ public class GameManager : Singleton<GameManager> {
         // return if isGameOver flg is already true
         if (this.isGameOver == true) return;
 
+        SocialPlatformsManager.Instance.ReportScore(this.currentTurn);
         ScoreManager.Instance.UpdateScore(this.currentTurn);
         this.isGameOver    = true;
         this.isInitialized = false;

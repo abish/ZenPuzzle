@@ -18,7 +18,7 @@ public class UnityAdsManager : MonoBehaviour {
 	private static Action _handleFailed;
 	private static Action _onContinue;
 
-	public static UnityAdsManager GetInctance()
+	public static UnityAdsManager GetInstance()
 	{
 		if ( _instance == null )
 		{

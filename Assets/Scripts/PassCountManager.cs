@@ -99,6 +99,7 @@ public class PassCountManager : Singleton<PassCountManager> {
 
         this._passCountRecoveredAt = this._passCountRecoveredAt - this.passCountRecoverInterval * count;
         PlayerPrefs.SetInt("passCountRecoveredAt", this._passCountRecoveredAt);
+        PlayerPrefs.Save();
     }
 
 }

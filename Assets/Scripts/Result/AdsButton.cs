@@ -5,13 +5,13 @@ public class AdsButton : MonoBehaviour {
 
 	void Start () {
 		// GetInstance for initialization
-		UnityAdsManager unityAdsManager = UnityAdsManager.GetInctance();
+		UnityAdsManager unityAdsManager = UnityAdsManager.GetInstance();
 	}
 	
 
 	public void ShowAds ()
 	{
-		UnityAdsManager unityAdsManager = UnityAdsManager.GetInctance();
+		UnityAdsManager unityAdsManager = UnityAdsManager.GetInstance();
 		unityAdsManager.ShowAds(null, RecoverPassCount);
 	}
 

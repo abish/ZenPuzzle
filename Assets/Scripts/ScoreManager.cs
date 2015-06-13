@@ -11,36 +11,20 @@ public class ScoreManager : Singleton<ScoreManager> {
 	private int _thirdScore  = -1;
 
     public int GetBestScore () {
-        // Initialize
-        if (this._bestScore == -1)
-        {
-            this._bestScore = PlayerPrefs.GetInt("bestScore");// return 0 if cache not found
-        }
-
         return this._bestScore;
     }
     public int GetSecondScore () {
-        // Initialize
-        if (this._secondScore == -1)
-        {
-            this._secondScore = PlayerPrefs.GetInt("secondScore");// return 0 if cache not found
-        }
-
         return this._secondScore;
     }
     public int GetThirdScore () {
-        // Initialize
-        if (this._thirdScore == -1)
-        {
-            this._thirdScore = PlayerPrefs.GetInt("thirdScore");// return 0 if cache not found
-        }
-
         return this._thirdScore;
     }
 
     // return true if score is updated
     public bool UpdateScore (int newScore)
     {
+        Reload();
+
         // update is not necessary
         if (newScore < this._thirdScore) return false;
 
@@ -65,6 +49,7 @@ public class ScoreManager : Singleton<ScoreManager> {
             this._thirdScore = newScore;
             PlayerPrefs.SetInt("thirdScore", this._thirdScore);
         }
+            PlayerPrefs.SetInt("hoge", 5);
 
         PlayerPrefs.Save();
         return true;
