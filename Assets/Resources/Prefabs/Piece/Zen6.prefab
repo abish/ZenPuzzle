@@ -1,18 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &128604
+--- !u!1 &132234
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 479886}
-  - 212: {fileID: 21202562}
-  - 50: {fileID: 5087328}
-  - 114: {fileID: 11429664}
-  - 60: {fileID: 6026980}
-  - 82: {fileID: 8287532}
+  - 4: {fileID: 409804}
+  - 212: {fileID: 21261910}
+  - 50: {fileID: 5079942}
+  - 114: {fileID: 11423150}
+  - 82: {fileID: 8242932}
+  - 60: {fileID: 6004714}
   m_Layer: 0
   m_Name: Zen6
   m_TagString: Piece
@@ -20,70 +20,76 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &479886
+--- !u!4 &409804
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 128604}
+  m_GameObject: {fileID: 132234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .396607518, y: -.221821785, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5087328
+--- !u!50 &5079942
 Rigidbody2D:
+  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 128604}
+  m_GameObject: {fileID: 132234}
   m_Mass: 1
   m_LinearDrag: 1
   m_AngularDrag: 50
   m_GravityScale: .400000006
-  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!60 &6026980
+  m_Constraints: 0
+--- !u!60 &6004714
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 128604}
+  m_GameObject: {fileID: 132234}
   m_Enabled: 1
-  m_Material: {fileID: 6200000, guid: 60153cd0847e84471b3b4ee8149116c8, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: .551836729, y: -.105407834}
-      - {x: .563331425, y: .0298802257}
-      - {x: .623793364, y: .158271581}
-      - {x: .522298992, y: .365630329}
-      - {x: .406206429, y: .490918428}
-      - {x: .17172277, y: .633103192}
-      - {x: -.120340407, y: .629021287}
-      - {x: -.401234031, y: .513276517}
-      - {x: -.552553177, y: .318765998}
-      - {x: -.629021168, y: .133148938}
-      - {x: -.639999986, y: -.0611914694}
-      - {x: -.606723428, y: -.180340409}
-      - {x: -.301489413, y: -.478255332}
-      - {x: -.14634043, y: -.623531938}
-      - {x: .023617059, y: -.639999986}
-      - {x: .199872315, y: -.601702154}
-      - {x: .28889364, y: -.350851119}
-      - {x: .424127638, y: -.256595761}
---- !u!82 &8287532
+    - - {x: 1.17633152, y: -.122087687}
+      - {x: 1.25814795, y: -.0689896941}
+      - {x: 1.27568889, y: -.00845101476}
+      - {x: 1.26451337, y: .049190253}
+      - {x: 1.15791249, y: .133164912}
+      - {x: .946868658, y: .211582497}
+      - {x: .710572243, y: .263164997}
+      - {x: .368484497, y: .303164989}
+      - {x: -.141750187, y: .315791279}
+      - {x: -.571110845, y: .280538708}
+      - {x: -.864814401, y: .231043801}
+      - {x: -1.12478089, y: .157878846}
+      - {x: -1.25895619, y: .0600000024}
+      - {x: -1.27999997, y: -.0599999987}
+      - {x: -1.21316481, y: -.117373705}
+      - {x: -1.07316494, y: -.168956161}
+      - {x: -.830572248, y: -.237373739}
+      - {x: -.620033562, y: -.281582415}
+      - {x: -.259561837, y: -.307373762}
+      - {x: .0739797652, y: -.265286088}
+      - {x: .1873402, y: -.21686852}
+      - {x: .501448393, y: -.172659814}
+      - {x: .926734447, y: -.16632989}
+--- !u!82 &8242932
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 128604}
+  m_GameObject: {fileID: 132234}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -147,24 +153,24 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
---- !u!114 &11429664
+--- !u!114 &11423150
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 128604}
+  m_GameObject: {fileID: 132234}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cebdf780519a42fb95dc463bef94474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hitSound: {fileID: 8300000, guid: 2b2010fa89fdf451fb3ab9317bc06603, type: 3}
---- !u!212 &21202562
+--- !u!212 &21261910
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 128604}
+  m_GameObject: {fileID: 132234}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -194,5 +200,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 128604}
+  m_RootGameObject: {fileID: 132234}
   m_IsPrefabParent: 1
