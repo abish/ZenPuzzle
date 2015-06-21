@@ -916,6 +916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgoundImage: {fileID: 1250697189}
+  PieceSpawner: {fileID: 778075112}
 --- !u!1 &956342617
 GameObject:
   m_ObjectHideFlags: 0
