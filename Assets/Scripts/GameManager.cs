@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager> {
     private bool isGameOver      = false;
     private bool isInitialized   = false;
 
-    private bool isSingleMode = false;
+    private bool isSingleMode = true;
 
     private GameObject[] spawners;
     //
