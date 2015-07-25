@@ -8,7 +8,6 @@ public class Pieces : Singleton<Pieces> {
 
 	// TODO create piece name accessor if necessary
 	public string[] pieceList = new string[] {
-		//"Stick", "Cross", "Circle", "Zigzag", "Square", "Pawn"
 		"Zen1", "Zen2", "Zen3", "Zen4", "Zen5", "Zen6", "Zen7"
 	};
 
@@ -20,12 +19,6 @@ public class Pieces : Singleton<Pieces> {
 		{"Zen5",  5f},
 		{"Zen6",  5f},
 		{"Zen7",  5f},
-		//{"Stick",  2f},
-		//{"Cross",  1f},
-		//{"Circle", 1f},
-		//{"Zigzag", 2f},
-		//{"Square", 1f},
-		//{"Pawn",   1f},
 	};
 	private string defaultPiece = "Stick";
 
