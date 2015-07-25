@@ -2,25 +2,37 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// TODO: create GameRuleManager class for single/vs game to remove if/else
 public class GameManager : Singleton<GameManager> {
 
-	[SerializeField]
-	private int currentTurn = 1;// == score
-	private bool isGameOver      = false;
-	private bool isInitialized   = false;
-	private bool isPlayerGoFirst = true;// flg which player goes first
-	[SerializeField]
-	private string nextPlayerPieceName = null;
-	[SerializeField]
-	private string nextEnemyPieceName = null;
-	[SerializeField]
-	private string currentPieceName = null;// both enemy and player use this variable
+    [SerializeField]
+    private int currentTurn = 1;// == score
+    private bool isGameOver      = false;
+    private bool isInitialized   = false;
+
+    private bool isSingleMode = false;
+
+    private GameObject[] spawners;
+    //
+    // SINGLE GAME
+
+    // SINGLE GAME
+    //
+
+    //
+    // VS GAME
+    private bool   isPlayerGoFirst     = true;// flg which player goes first
+    private string nextPlayerPieceName = null;
+    private string nextEnemyPieceName  = null;
+    private string currentPieceName    = null;// both enemy and player use this variable
+    // VS GAME
+    //
 
 
-	void Start ()
-	{
-		Init ();
-	}
+    void Start ()
+    {
+        Init ();
+    }
 
     void Update ()
     {
@@ -31,80 +43,101 @@ public class GameManager : Singleton<GameManager> {
     }
 
     // Note: If gameObject is not found (in case scene is not fully loaded), this function is called multiple times
-	public void Init () {
+    public void Init () {
         this.currentTurn = 1;
 
-		// check if gameObject exists
-		GameObject spawner = GameObject.FindWithTag("Spawner");
-        if (spawner == null) return;
+        spawners = GameObject.FindGameObjectsWithTag("Spawner");
+        if (spawners == null) return;
 
-		// Lot Initial Piece
-		this.currentPieceName    = Pieces.LotPieceName();
-		this.nextPlayerPieceName = Pieces.LotPieceName();
-		this.nextEnemyPieceName  = Pieces.LotPieceName();
+        // Instantiate initial pieces
+        if (this.isSingleMode)
+        {
+            foreach (GameObject spawner in spawners)
+            {
+                string pieceName = Pieces.LotPieceName();
+                spawner.GetComponent<PieceSpawner>().Spawn(pieceName);
+            }
+        }
+        else
+        {
+            // Lot Initial Piece
+            this.currentPieceName    = Pieces.LotPieceName();
+            this.nextPlayerPieceName = Pieces.LotPieceName();
+            this.nextEnemyPieceName  = Pieces.LotPieceName();
 
-		// Lot first player
+            foreach (GameObject spawner in spawners)
+            {
+                spawner.GetComponent<PieceSpawner>().Spawn(this.currentPieceName);
+            }
+        }
 
-		// Instantiate first piece
-		spawner.GetComponent<PieceSpawner>().Spawn(this.currentPieceName);
+        // prepare unityads
+        UnityAdsManager unityAdsManager = UnityAdsManager.GetInstance();
 
-		// prepare unityads
-		UnityAdsManager unityAdsManager = UnityAdsManager.GetInstance();
+        // unlock pieces
+        Pieces.Instance.UnLock();
 
         // initialize flg
         this.isInitialized = true;
 
-        // TODO
         SocialPlatformsManager.Instance.Init();
-	}
+    }
 
-	public bool IsPlayerTurn () {
-		bool isPlayerTurn = this.currentTurn % 2 == 1;
-		if (this.isPlayerGoFirst == false) isPlayerTurn = !isPlayerTurn;
+    public int CurrentTurn () {
+        return this.currentTurn;
+    }
 
-		return isPlayerTurn;
-	}
-
-	public int CurrentTurn () {
-		return this.currentTurn;
-	}
-	// TODO rewrite with get,set
-	public string NextPlayerPieceName () {
-		return this.nextPlayerPieceName;
-	}
-	public string NextEnemyPieceName () {
-		return this.nextEnemyPieceName;
-	}
-	public string CurrentPieceName () {
-		return this.currentPieceName;
-	}
-
-	public void GoToNextTurn ()
+    public void GoToNextTurn ()
     {
-		//  set Current Piece for next turn
-		bool isPlayerTurn = IsPlayerTurn ();
-		this.currentPieceName = (isPlayerTurn) ? nextEnemyPieceName : nextPlayerPieceName;
+        if (this.isSingleMode)
+        {
+            bool canSpawn = true;        
+            foreach (GameObject spawner in spawners)
+            {
+                if (spawner.GetComponent<PieceSpawner>().CanSpawn() == false)
+                    canSpawn = false;
+            }
 
-		// spawn next piece
-		GameObject spawner = GameObject.FindWithTag("Spawner");
-		spawner.GetComponent<PieceSpawner>().Spawn(this.currentPieceName);
-		Debug.Log ("isFixed");
+            if (canSpawn)
+            {
+                foreach (GameObject spawner in spawners)
+                {
+                    string pieceName = Pieces.LotPieceName();
+                    spawner.GetComponent<PieceSpawner>().Spawn(pieceName);
+                }
+            }
+        }
+        else
+        {
+            //  set Current Piece for next turn
+            bool isPlayerTurn = IsPlayerTurn ();
+            this.currentPieceName = (isPlayerTurn) ? nextEnemyPieceName : nextPlayerPieceName;
 
-		//  lot Next Piece
-		if (isPlayerTurn)
-		{
-			this.nextEnemyPieceName = Pieces.LotPieceName();
-		}
-		else
-		{
-			this.nextPlayerPieceName = Pieces.LotPieceName();
-		}
+            // only one spawner exists 
+            // TODO: check
+            // spawn next piece
+            foreach (GameObject spawner in spawners)
+            {
+                spawner.GetComponent<PieceSpawner>().Spawn(this.currentPieceName);
+            }
 
-		// TODO event to notify ugui
+            //  lot Next Piece
+            if (isPlayerTurn)
+            {
+                this.nextEnemyPieceName = Pieces.LotPieceName();
+            }
+            else
+            {
+                this.nextPlayerPieceName = Pieces.LotPieceName();
+            }
+        }
 
-		// next turn has come
-		currentTurn++;
-	}
+
+        // TODO event to notify ugui
+
+        // next turn has come
+        currentTurn++;
+    }
 
     public void GoToGameOver ()
     {
@@ -115,19 +148,72 @@ public class GameManager : Singleton<GameManager> {
         ScoreManager.Instance.UpdateScore(this.currentTurn);
         this.isGameOver    = true;
         this.isInitialized = false;
-		Application.LoadLevel("Result");
+        Application.LoadLevel("Result");
     }
 
     public void GoToGameStart ()
     {
         this.isGameOver = false;
 
-		Application.LoadLevel("MainGame");
-        Init();
+        if (this.isSingleMode)
+        {
+            Application.LoadLevel("SingleGame");
+        }
+        else
+        {
+            Application.LoadLevel("MainGame");
+        }
     }
 
     public void ExecPlayerPass ()
     {
-        this.nextPlayerPieceName = Pieces.LotPieceName();
+        if (this.isSingleMode)
+        {
+            foreach (GameObject spawner in spawners)
+            {
+                // delete current pieces
+                spawner.GetComponent<PieceSpawner>().DestroyNotMovedPiece();
+                //GameObject notMovedPiece = spawner.GetComponent<PieceSpawner>().GetNotMovedPiece();
+                //if (notMovedPiece) Destroy(notMovedPiece);
+
+                // create next pieces
+                string pieceName = Pieces.LotPieceName();
+                spawner.GetComponent<PieceSpawner>().Spawn(pieceName);
+                Debug.Log("spawn");
+                Debug.Log(pieceName);
+            }
+        }
+        else
+        {
+            this.nextPlayerPieceName = Pieces.LotPieceName();
+        }
     }
+
+    //
+    // SINGLE GAME
+
+    // SINGLE GAME
+    //
+
+    //
+    // VS GAME
+    public bool IsPlayerTurn () {
+        bool isPlayerTurn = this.currentTurn % 2 == 1;
+        if (this.isPlayerGoFirst == false) isPlayerTurn = !isPlayerTurn;
+
+        return isPlayerTurn;
+    }
+
+    // TODO rewrite with get,set
+    public string NextPlayerPieceName () {
+        return this.nextPlayerPieceName;
+    }
+    public string NextEnemyPieceName () {
+        return this.nextEnemyPieceName;
+    }
+    public string CurrentPieceName () {
+        return this.currentPieceName;
+    }
+    // VS GAME
+    //
 }

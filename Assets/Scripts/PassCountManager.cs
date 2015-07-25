@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PassCountManager : Singleton<PassCountManager> {
 
 	[SerializeField]
-	private int maxPassCount = 3;
+	public  int maxPassCount = 3;
 	private int passCountRecoverInterval = 300;//sec
 	private int _passCountRecoveredAt = -1;//epoch time
 	private bool isDirty = true;//epoch time

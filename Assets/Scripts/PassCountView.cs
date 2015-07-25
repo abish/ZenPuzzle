@@ -2,14 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class ScoreView : MonoBehaviour {
-	int previousTurn    = 0; // turn = stone num = karma
+public class PassCountView : MonoBehaviour {
 	int _validPassCount = 0; // turn = stone num = karma
 
 	void Start () {
-		int currentTurn    = GameManager.Instance.CurrentTurn();
 		int validPassCount = PassCountManager.Instance.GetValidPassCount();
-		previousTurn    = currentTurn;
         _validPassCount = validPassCount;
 
 		updateText();
@@ -18,18 +15,18 @@ public class ScoreView : MonoBehaviour {
 	void Update () {
 		int currentTurn    = GameManager.Instance.CurrentTurn();
 		int validPassCount = PassCountManager.Instance.GetValidPassCount();
-		if (currentTurn == previousTurn && validPassCount == _validPassCount)
+		if (validPassCount == _validPassCount)
             return;
 
 		// update if turn changed
-		previousTurn    = currentTurn;
         _validPassCount = validPassCount;
 		updateText();
 	}
 
 	void updateText()
 	{
-		string _text = "" + previousTurn;
+		int maxPassCount = PassCountManager.Instance.maxPassCount;
+		string _text = _validPassCount + "/" + maxPassCount;
 		GetComponent<Text>().text = _text;
 	}
 }

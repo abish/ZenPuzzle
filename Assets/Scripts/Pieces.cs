@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Pieces : Singleton<Pieces> {
 
+    private bool isLocked = false;
+
 	// TODO create piece name accessor if necessary
 	public string[] pieceList = new string[] {
 		//"Stick", "Cross", "Circle", "Zigzag", "Square", "Pawn"
@@ -90,4 +92,31 @@ public class Pieces : Singleton<Pieces> {
         }
         base.OnDestroy();
     }
+
+    // Lock function
+    // Only one piece is draggable at a time
+    // 
+    public bool IsLocked()
+    {
+        return this.isLocked;
+    }
+    public bool GetLock()
+    {
+        // cannot get lock if already locked
+        // TODO: avoid multiple locks
+        if (this.isLocked == true) return false;
+
+        this.isLocked = true;
+        return true;
+    }
+    public bool UnLock()
+    {
+        // cannot unlock when not locked
+        if (this.isLocked == false) return false;
+
+        this.isLocked = false;
+        return true;
+    }
+    // 
+    // Lock function
 }

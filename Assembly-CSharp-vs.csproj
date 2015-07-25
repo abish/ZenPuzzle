@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\FallCheck.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\PassCountManager.cs" />
+     <Compile Include="Assets\Scripts\PassCountView.cs" />
      <Compile Include="Assets\Scripts\Piece.cs" />
      <Compile Include="Assets\Scripts\PieceSpawner.cs" />
      <Compile Include="Assets\Scripts\Pieces.cs" />

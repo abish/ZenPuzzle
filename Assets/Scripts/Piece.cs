@@ -3,112 +3,129 @@ using System.Collections;
 
 public class Piece : MonoBehaviour {
 
-	// true if this piece is draggable
-	private bool canDrag = true;
-	// true if this piece is correctly placed and next player should place next piece
-	private bool isFixed = false;
-	private float z = 1f;
-	private float tapEndAt;
-	private bool isTouching = false;
-	private Vector3 lastValidPosition = Vector3.zero;
+    // true if this piece is draggable
+    private bool canDrag = true;
+    private bool hasLock = false;
+    // true if this piece is correctly placed and next player should place next piece
+    private bool isFixed = false;
+    private float z = 1f;
+    private float tapEndAt;
+    private bool isTouching = false;
+    private Vector3 lastValidPosition = Vector3.zero;
     //distance between tap point and visible position of piece 
-	private float yPositionBias = - 50f;
+    private float yPositionBias = - 50f;
 
-	// sound
-	private int minVelocityForSound = 1;
-	private float playSoundInterval = 0.5f;
-	private float lastPlaySoundAt = 0f;
-	public AudioClip hitSound;
-	private AudioSource _audio;
+    // sound
+    private int minVelocityForSound = 1;
+    private float playSoundInterval = 0.5f;
+    private float lastPlaySoundAt = 0f;
+    public AudioClip hitSound;
+    private AudioSource _audio;
 
     // threshold to move camera
-    private float yThresholdViewport = 0.5f;
+    private float yThresholdViewport = 0.3f;
     private float yThresholdPosition;
 
-	void Start () {
+    void Start () {
         Vector3 positionDiff = Camera.main.ViewportToWorldPoint(new Vector3(0, yThresholdViewport, 0));
         yThresholdPosition = positionDiff.y;
 
-		yPositionBias = - Screen.height * 0.1f;
-	}
+        yPositionBias = - Screen.height * 0.1f;
+    }
 
-	// Update is called once per frame
-	void Update () {
-		if (isFixed == false && canDrag == false)
-		{
-			//TODO magic number
-			if (GetComponent<Rigidbody2D>().velocity.magnitude == 0 && tapEndAt + 1 < Time.time)
-			{
-				isFixed = true;
+    // Update is called once per frame
+    void Update () {
+        if (isFixed == false && canDrag == false)
+        {
+            //TODO magic number
+            if (GetComponent<Rigidbody2D>().velocity.magnitude == 0 && tapEndAt + 1 < Time.time)
+            {
+                isFixed = true;
+                if (hasLock) Pieces.Instance.UnLock();
 
                 // move camera and background image if piece is high enough
                 if (transform.position.y > yThresholdPosition)
                     Camera.main.GetComponent<CameraController>().MoveUpward();
 
-				GameManager.Instance.GoToNextTurn();
-			}
+                GameManager.Instance.GoToNextTurn();
+            }
 
-		}
-	}
+        }
+    }
 
-	void OnMouseDrag()
-	{
-		if (canDrag == false ) return;
+    void OnMouseDrag()
+    {
+        if (canDrag == false ) return;
 
-		//TODO check rest time
-		if (isTouching == false )
-		{
-			lastValidPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z);
-		}
+        if (hasLock == false)
+        {
+            bool isSuccess = Pieces.Instance.GetLock();
+            if (isSuccess == false) return;
+            hasLock = true;
 
-		transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z));
-	}
+            // set initial position
+            lastValidPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z);
+        }
 
-	void OnMouseUp()
-	{
-		if (canDrag == false ) return;
+        if (isTouching == false )
+        {
+            lastValidPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z);
+        }
 
-		transform.position = Camera.main.ScreenToWorldPoint(lastValidPosition);
-		canDrag = false;
-		tapEndAt = Time.time;
+        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z));
+    }
 
-		GetComponent<Rigidbody2D>().isKinematic = false;
-		Collider2D[] colliders  = GetComponents<Collider2D>();
-		foreach (Collider2D col in colliders) col.isTrigger=false;
-	}
+    void OnMouseUp()
+    {
+        if (canDrag == false ) return;
+        if (hasLock == false) return;
 
-	void OnTriggerEnter2D (Collider2D other)
-	{
-		if(other.tag == "Piece")
-		{
-			isTouching = true;
-		}
-	}
+        transform.position = Camera.main.ScreenToWorldPoint(lastValidPosition);
+        canDrag = false;
+        tapEndAt = Time.time;
 
-	void OnTriggerExit2D (Collider2D other)
-	{
-		if(other.tag == "Piece")
-		{
-			isTouching = false;
-		}
-	}
+        GetComponent<Rigidbody2D>().isKinematic = false;
+        Collider2D[] colliders  = GetComponents<Collider2D>();
+        foreach (Collider2D col in colliders) col.isTrigger=false;
+    }
 
-	void OnCollisionEnter2D (Collision2D other)
-	{
-		if(other.gameObject.tag == "Piece" && hitSound != null)
-		{
-			if (_audio == null) _audio = GetComponent<AudioSource>();
+    void OnTriggerEnter2D (Collider2D other)
+    {
+        if(other.tag == "Piece")
+        {
+            isTouching = true;
+        }
+    }
 
-			if (_audio != null
-			    && Time.time > lastPlaySoundAt + playSoundInterval
-			    && GetComponent<Rigidbody2D>().velocity.magnitude >= minVelocityForSound)
-			{
-		Debug.Log ("play!");
-				_audio.PlayOneShot(hitSound);
-				lastPlaySoundAt = Time.time;
-			}
+    void OnTriggerExit2D (Collider2D other)
+    {
+        if(other.tag == "Piece")
+        {
+            isTouching = false;
+        }
+    }
 
-		Debug.Log (_audio);
-		}
-	}
+    void OnCollisionEnter2D (Collision2D other)
+    {
+        if(other.gameObject.tag == "Piece" && hitSound != null)
+        {
+            if (_audio == null) _audio = GetComponent<AudioSource>();
+
+            if (_audio != null
+                && Time.time > lastPlaySoundAt + playSoundInterval
+                && GetComponent<Rigidbody2D>().velocity.magnitude >= minVelocityForSound)
+            {
+        Debug.Log ("play!");
+                _audio.PlayOneShot(hitSound);
+                lastPlaySoundAt = Time.time;
+            }
+
+        Debug.Log (_audio);
+        }
+    }
+
+    public bool CanDrag ()
+    {
+        return canDrag;
+    }
 }
