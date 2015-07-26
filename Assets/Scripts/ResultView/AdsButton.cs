@@ -18,6 +18,6 @@ public class AdsButton : MonoBehaviour {
     private void RecoverPassCount ()
     {
         Debug.Log("RecoverPassCount");
-        PassCountManager.Instance.RecoverPassCount();
+        PassCountManager.Instance.RecoverPassCount(PassCountManager.Instance.maxPassCount);
     }
 }

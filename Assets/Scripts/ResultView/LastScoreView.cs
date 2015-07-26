@@ -9,6 +9,6 @@ public class LastScoreView : MonoBehaviour {
         // CurrentTurn is not initialized until next game starts
 		int previousTurn = GameManager.Instance.CurrentTurn();
 	
-		GetComponent<Text>().text = "Karma:" + previousTurn;
+		GetComponent<Text>().text = "" + previousTurn;
 	}
 }

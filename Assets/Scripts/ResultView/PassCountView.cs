@@ -8,10 +8,11 @@ namespace Result {
     
         // Note: not required to call every frame
         void Update () {
+            int maxPassCount = PassCountManager.Instance.maxPassCount;
             int validPassCount    = PassCountManager.Instance.GetValidPassCount();
             int restTimeToRecover = PassCountManager.Instance.RestTimeToRecoverOne();
     
-            string _text = validPassCount + "Pass left\n";
+            string _text = "Change stones:" + validPassCount + "/" + maxPassCount + "\n";
             _text += restTimeToRecover + " sec";
             GetComponent<Text>().text = _text;
         }

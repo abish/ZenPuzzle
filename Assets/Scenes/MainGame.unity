@@ -423,7 +423,7 @@ RectTransform:
   m_Father: {fileID: 21652627}
   m_RootOrder: 3
   m_AnchorMin: {x: .310000002, y: .899999976}
-  m_AnchorMax: {x: .689999998, y: 1}
+  m_AnchorMax: {x: .689999998, y: .949999988}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -916,7 +916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgoundImage: {fileID: 1250697189}
-  PieceSpawner: {fileID: 778075112}
+  pieceSpawners: []
 --- !u!1 &956342617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,7 +1627,7 @@ RectTransform:
   m_Father: {fileID: 157737431}
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: .5}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: .899999976}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -1695,7 +1695,7 @@ RectTransform:
   m_Father: {fileID: 2104888515}
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: .5}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: .899999976}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
