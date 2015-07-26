@@ -23,7 +23,7 @@ public class Piece : MonoBehaviour {
     private AudioSource _audio;
 
     // threshold to move camera
-    private float yThresholdViewport = 0.5f;
+    private float yThresholdViewport = 0.63f;
     private float yThresholdPosition;
 
     void Start () {
