@@ -72,7 +72,7 @@ public class GameManager : Singleton<GameManager> {
         }
 
         // prepare unityads
-        UnityAdsManager unityAdsManager = UnityAdsManager.GetInstance();
+        UnityAdsManager.GetInstance();
 
         // unlock pieces
         Pieces.Instance.UnLock();
@@ -146,6 +146,8 @@ public class GameManager : Singleton<GameManager> {
 
         SocialPlatformsManager.Instance.ReportScore(this.currentTurn);
         ScoreManager.Instance.UpdateScore(this.currentTurn);
+        HeightManager.GetInstance().UpdateHeight();
+
         this.isGameOver    = true;
         this.isInitialized = false;
         Application.LoadLevel("Result");

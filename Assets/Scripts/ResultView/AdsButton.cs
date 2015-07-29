@@ -5,7 +5,7 @@ public class AdsButton : MonoBehaviour {
 
 	void Start () {
 		// GetInstance for initialization
-		UnityAdsManager unityAdsManager = UnityAdsManager.GetInstance();
+		UnityAdsManager.GetInstance();
 	}
 	
 

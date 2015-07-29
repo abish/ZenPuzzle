@@ -13,7 +13,6 @@ public class PassCountView : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		int currentTurn    = GameManager.Instance.CurrentTurn();
 		int validPassCount = PassCountManager.Instance.GetValidPassCount();
 		if (validPassCount == _validPassCount)
             return;

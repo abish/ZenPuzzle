@@ -261,7 +261,7 @@ PlayerSettings:
   psp2InfoBarColor: 0
   psmSplashimage: {fileID: 0}
   virtualRealitySupported: 0
-  spritePackerPolicy: DefaultPackerPolicy
+  spritePackerPolicy: TightPackerPolicy
   scriptingDefineSymbols: {}
   metroPackageName: _2D v3
   metroPackageLogo: 

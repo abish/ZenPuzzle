@@ -49,7 +49,6 @@ public class ScoreManager : Singleton<ScoreManager> {
             this._thirdScore = newScore;
             PlayerPrefs.SetInt("thirdScore", this._thirdScore);
         }
-            PlayerPrefs.SetInt("hoge", 5);
 
         PlayerPrefs.Save();
         return true;

@@ -8,17 +8,20 @@ public class Pieces : Singleton<Pieces> {
 
 	// TODO create piece name accessor if necessary
 	public string[] pieceList = new string[] {
-		"Zen1", "Zen2", "Zen3", "Zen4", "Zen5", "Zen6", "Zen7"
+		"Zen1", "Zen2", "Zen3", "Zen4", "Zen5", "Zen6", "Zen7", "Zen8", "Zen9", "Zen10"
 	};
 
 	public Dictionary<string,float> weightMap = new Dictionary<string,float>() {
 		{"Zen1",  20f},
-		{"Zen2",  20f},
+		{"Zen2",  10f},
 		{"Zen3",  20f},
 		{"Zen4",  20f},
-		{"Zen5",  5f},
-		{"Zen6",  5f},
-		{"Zen7",  5f},
+		{"Zen5",  10f},
+		{"Zen6",  20f},
+		{"Zen7",  10f},
+		{"Zen8",  5f},
+		{"Zen9",  10f},
+		{"Zen10", 20f},
 	};
 	private string defaultPiece = "Stick";
 

@@ -23,7 +23,7 @@ public class Piece : MonoBehaviour {
     private AudioSource _audio;
 
     // threshold to move camera
-    private float yThresholdViewport = 0.63f;
+    private float yThresholdViewport = 0.60f;
     private float yThresholdPosition;
 
     void Start () {
@@ -42,6 +42,8 @@ public class Piece : MonoBehaviour {
             {
                 isFixed = true;
                 if (hasLock) Pieces.Instance.UnLock();
+
+                HeightManager.GetInstance().UpdateCurrentHeight(transform.position.y);
 
                 // move camera and background image if piece is high enough
                 if (transform.position.y > yThresholdPosition)
