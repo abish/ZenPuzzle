@@ -239,10 +239,10 @@ RectTransform:
   m_Children:
   - {fileID: 1844352548}
   - {fileID: 396128709}
-  - {fileID: 1794629854}
   - {fileID: 1319620878}
   - {fileID: 280756577}
   - {fileID: 603320824}
+  - {fileID: 1794629854}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
@@ -371,7 +371,7 @@ RectTransform:
   m_Children:
   - {fileID: 1515009768}
   m_Father: {fileID: 21652627}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: -.5}
   m_AnchorMax: {x: 1, y: -.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -647,7 +647,7 @@ RectTransform:
   m_Children:
   - {fileID: 747359258}
   m_Father: {fileID: 21652627}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: -.5}
   m_AnchorMax: {x: 1, y: -.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -937,7 +937,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CurrentHeight
+  m_Text: Current
 --- !u!222 &747359260
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1419,7 +1419,7 @@ RectTransform:
   m_Children:
   - {fileID: 1366037704}
   m_Father: {fileID: 21652627}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_AnchorMin: {x: 0, y: -.5}
   m_AnchorMax: {x: 1, y: -.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1650,7 +1650,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: lastHeight
+  m_Text: last
 --- !u!222 &1366037706
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1716,7 +1716,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BestHeight
+  m_Text: Best
 --- !u!222 &1515009770
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1831,7 +1831,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 21652627}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_AnchorMin: {x: .5, y: .699999988}
   m_AnchorMax: {x: .5, y: .699999988}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2306,7 +2306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2104888515
 RectTransform:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class Piece : MonoBehaviour {
                 isFixed = true;
                 if (hasLock) Pieces.Instance.UnLock();
 
-                HeightManager.GetInstance().UpdateCurrentHeight(transform.position.y);
+                HeightManager.Instance.UpdateCurrentHeight(transform.position.y);
 
                 // move camera and background image if piece is high enough
                 if (transform.position.y > yThresholdPosition)

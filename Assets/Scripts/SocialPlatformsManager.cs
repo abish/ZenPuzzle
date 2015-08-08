@@ -56,7 +56,7 @@ public class SocialPlatformsManager : Singleton<SocialPlatformsManager>
         if (this.isAuthenticated == false) return;
         Debug.Log("ReportScore:" + score);
 
-        Social.ReportScore(score, this.leaderboardID, success => {
+        Social.ReportScore((long)score, this.leaderboardID, success => {
             Debug.Log(success ? "success!" : "failed"); 
         });
     }

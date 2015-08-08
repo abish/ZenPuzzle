@@ -13,7 +13,7 @@ public class CurrentHeightView : MonoBehaviour {
 
     void Update () {
         // should be event driven
-        float currentHeight = HeightManager.GetInstance().GetCurrentHeight();
+        float currentHeight = HeightManager.Instance.GetCurrentHeight();
         // no need to change
         if (_currentHeight == currentHeight) return;
 

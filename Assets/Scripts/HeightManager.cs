@@ -2,42 +2,40 @@
 using UnityEngine;
 using System.Collections;
 
-public class HeightManager : MonoBehaviour {
-
-
-    // this object should be destroyed after each game
-    static HeightManager _instance;
-
+public class HeightManager : Singleton<HeightManager> {
     //private float geta = 4.5f; // startPoint.transform.position.y * -1
 
-    public float _bestHeight    = -5.0f;
-    public float _lastHeight    = -5.0f;
-    public float _currentHeight = -5.0f;
+    // for leaderboard score type is To 2 decimals
+    public float geta = 4.5f;
+    public int multiplier = 100;
 
-    public static HeightManager GetInstance()
-    {
-        if ( _instance == null )
-        {
-            GameObject go = new GameObject("HeightManager");
-            _instance = go.AddComponent<HeightManager>();
-
-            _instance.Init();
-        }
-        return _instance;
-    }
+    private bool isInitialized  = false;
+    public float _bestHeight    = -4.5f;
+    public float _lastHeight    = -4.5f;
+    public float _currentHeight = -4.5f;
 
     public void Init () {
-        _instance.Reload();
+        this._bestHeight    = -4.5f;
+        this._lastHeight    = -4.5f;
+        this._currentHeight = -4.5f;
+        Reload();
+
+        this.isInitialized = true;
     }
 
     public float GetBestHeight () {
+        if (this.isInitialized == false) this.Init();
         return this._bestHeight;
     }
     public float GetLastHeight () {
+        if (this.isInitialized == false) this.Init();
         return this._lastHeight;
     }
     public float GetCurrentHeight () {
         return this._currentHeight;
+    }
+    public int GetCurrentHeightForLeaderboard () {
+        return (int)(this.multiplier * (this._currentHeight + this.geta));
     }
     public void DeleteAll ()
     {
@@ -65,7 +63,7 @@ public class HeightManager : MonoBehaviour {
     // called when game ended
     public bool UpdateHeight ()
     {
-        _instance.Reload();
+        Reload();
 
         if (this._currentHeight > this._bestHeight)
         {

@@ -48,6 +48,7 @@ public class GameManager : Singleton<GameManager> {
 
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
         if (spawners == null) return;
+        if (spawners.Length == 0) return;
 
         // Instantiate initial pieces
         if (this.isSingleMode)
@@ -70,6 +71,8 @@ public class GameManager : Singleton<GameManager> {
                 spawner.GetComponent<PieceSpawner>().Spawn(this.currentPieceName);
             }
         }
+
+        HeightManager.Instance.Init();
 
         // prepare unityads
         UnityAdsManager.GetInstance();
@@ -144,9 +147,11 @@ public class GameManager : Singleton<GameManager> {
         // return if isGameOver flg is already true
         if (this.isGameOver == true) return;
 
-        SocialPlatformsManager.Instance.ReportScore(this.currentTurn);
-        ScoreManager.Instance.UpdateScore(this.currentTurn);
-        HeightManager.GetInstance().UpdateHeight();
+        int biasedHeight = HeightManager.Instance.GetCurrentHeightForLeaderboard();
+        Debug.Log(biasedHeight);
+        SocialPlatformsManager.Instance.ReportScore(biasedHeight);
+        ScoreManager.Instance.UpdateScore(biasedHeight);
+        HeightManager.Instance.UpdateHeight();
 
         this.isGameOver    = true;
         this.isInitialized = false;
@@ -181,8 +186,8 @@ public class GameManager : Singleton<GameManager> {
                 // create next pieces
                 string pieceName = Pieces.LotPieceName();
                 spawner.GetComponent<PieceSpawner>().Spawn(pieceName);
-                Debug.Log("spawn");
-                Debug.Log(pieceName);
+                //Debug.Log("spawn");
+                //Debug.Log(pieceName);
             }
         }
         else

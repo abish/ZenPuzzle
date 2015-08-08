@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BestHeightView : MonoBehaviour {
     void Start () {
-        float bestHeight = HeightManager.GetInstance().GetBestHeight();
+        float bestHeight = HeightManager.Instance.GetBestHeight();
         Vector3 bestHeightPosition = Camera.main.WorldToViewportPoint(new Vector3(0, bestHeight, 0));
         RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchorMin = new Vector2(0f, bestHeightPosition.y);
