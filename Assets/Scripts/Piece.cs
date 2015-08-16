@@ -110,64 +110,6 @@ public class Piece : MonoBehaviour
         });
     }
 
-    // Update is called once per frame
-    //void Update () {
-    //    if (isFixed == false && canDrag == false)
-    //    {
-    //        //TODO magic number
-    //        if (GetComponent<Rigidbody2D>().velocity.magnitude == 0 && tapEndAt + 1 < Time.time)
-    //        {
-    //            isFixed = true;
-    //            if (hasLock) Pieces.Instance.UnLock();
-
-    //            HeightManager.Instance.UpdateCurrentHeight(transform.position.y);
-
-    //            // move camera and background image if piece is high enough
-    //            if (transform.position.y > yThresholdPosition)
-    //                Camera.main.GetComponent<CameraController>().MoveUpward();
-
-    //            GameManager.Instance.GoToNextTurn();
-    //        }
-
-    //    }
-    //}
-
-    //void OnMouseDrag()
-    //{
-    //    if (canDrag == false ) return;
-
-    //    if (hasLock == false)
-    //    {
-    //        bool isSuccess = Pieces.Instance.GetLock();
-    //        if (isSuccess == false) return;
-    //        hasLock = true;
-
-    //        // set initial position
-    //        lastValidPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z);
-    //    }
-
-    //    if (isTouching == false )
-    //    {
-    //        lastValidPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z);
-    //    }
-
-    //    transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y + yPositionBias, z));
-    //}
-
-    //void OnMouseUp()
-    //{
-    //    if (canDrag == false ) return;
-    //    if (hasLock == false) return;
-
-    //    transform.position = Camera.main.ScreenToWorldPoint(lastValidPosition);
-    //    canDrag = false;
-    //    tapEndAt = Time.time;
-
-    //    GetComponent<Rigidbody2D>().isKinematic = false;
-    //    Collider2D[] colliders  = GetComponents<Collider2D>();
-    //    foreach (Collider2D col in colliders) col.isTrigger=false;
-    //}
-
     void OnTriggerEnter2D (Collider2D other)
     {
         if(other.tag == "Piece")
