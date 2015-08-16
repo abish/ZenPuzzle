@@ -2,26 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UniRx;
 
 public class CurrentHeightView : MonoBehaviour {
     private RectTransform _rectTransform;
-    private float _currentHeight = -5f;
 
-    void Awake () {
+    void Start () {
         _rectTransform = GetComponent<RectTransform>();
-    }
 
-    void Update () {
-        // should be event driven
-        float currentHeight = HeightManager.Instance.GetCurrentHeight();
-        // no need to change
-        if (_currentHeight == currentHeight) return;
+        HeightManager.Instance.CurrentHeight
+        .DistinctUntilChanged()
+        .Subscribe(height => {
+            Debug.Log("update position!!!");
+            Vector3 currentHeightPosition = Camera.main.WorldToViewportPoint(new Vector3(0, height, 0));
 
-        _currentHeight = currentHeight;
-        Vector3 currentHeightPosition = Camera.main.WorldToViewportPoint(new Vector3(0, currentHeight, 0));
-
-        _rectTransform.anchorMin = new Vector2(0f, currentHeightPosition.y);
-        _rectTransform.anchorMax = new Vector2(1f, currentHeightPosition.y);
+            _rectTransform.anchorMin = new Vector2(0f, currentHeightPosition.y);
+            _rectTransform.anchorMax = new Vector2(1f, currentHeightPosition.y);
+        });
     }
 
 }

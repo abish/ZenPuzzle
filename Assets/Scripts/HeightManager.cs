@@ -1,23 +1,23 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UniRx;
 
 public class HeightManager : Singleton<HeightManager> {
-    //private float geta = 4.5f; // startPoint.transform.position.y * -1
-
     // for leaderboard score type is To 2 decimals
-    public float geta = 4.5f;
+    public float geta = 4.5f;// startPoint.transform.position.y * -1
     public int multiplier = 100;
 
+    public ReactiveProperty<float> BestHeight { get; private set; }
+    public ReactiveProperty<float> LastHeight { get; private set; }
+    public ReactiveProperty<float> CurrentHeight { get; private set; }
     private bool isInitialized  = false;
-    public float _bestHeight    = -4.5f;
-    public float _lastHeight    = -4.5f;
-    public float _currentHeight = -4.5f;
+    public float initialHeight = -4.5f;
 
-    public void Init () {
-        this._bestHeight    = -4.5f;
-        this._lastHeight    = -4.5f;
-        this._currentHeight = -4.5f;
+    public override void Init () {
+        BestHeight    = new ReactiveProperty<float>(initialHeight);
+        LastHeight    = new ReactiveProperty<float>(initialHeight);
+        CurrentHeight = new ReactiveProperty<float>(initialHeight);
         Reload();
 
         this.isInitialized = true;
@@ -25,17 +25,14 @@ public class HeightManager : Singleton<HeightManager> {
 
     public float GetBestHeight () {
         if (this.isInitialized == false) this.Init();
-        return this._bestHeight;
+        return BestHeight.Value;
     }
     public float GetLastHeight () {
         if (this.isInitialized == false) this.Init();
-        return this._lastHeight;
-    }
-    public float GetCurrentHeight () {
-        return this._currentHeight;
+        return LastHeight.Value;
     }
     public int GetCurrentHeightForLeaderboard () {
-        return (int)(this.multiplier * (this._currentHeight + this.geta));
+        return (int)(this.multiplier * (CurrentHeight.Value + this.geta));
     }
     public void DeleteAll ()
     {
@@ -46,35 +43,34 @@ public class HeightManager : Singleton<HeightManager> {
     public void Reload ()
     {
         if (PlayerPrefs.HasKey("bestHeight"))
-            this._bestHeight = PlayerPrefs.GetFloat("bestHeight");
+            BestHeight.Value = PlayerPrefs.GetFloat("bestHeight");
         if (PlayerPrefs.HasKey("lastHeight"))
-            this._lastHeight = PlayerPrefs.GetFloat("lastHeight");
+            LastHeight.Value = PlayerPrefs.GetFloat("lastHeight");
     }
 
     // called when piece is fixed
-    public void UpdateCurrentHeight(float originalHeight)
+    public void UpdateCurrentHeight(float height)
     {
-        float height = originalHeight;
-        if (this._currentHeight >= height) return;
+        if (CurrentHeight.Value >= height) return;
 
-        this._currentHeight = height;
+        CurrentHeight.Value = height;
     }
 
     // called when game ended
-    public bool UpdateHeight ()
+    public void UpdateHeight ()
     {
-        Reload();
-
-        if (this._currentHeight > this._bestHeight)
+        if (CurrentHeight.Value > BestHeight.Value)
         {
-            this._bestHeight = this._currentHeight;
-            PlayerPrefs.SetFloat("bestHeight", this._bestHeight);
+            BestHeight.Value = CurrentHeight.Value;
+            PlayerPrefs.SetFloat("bestHeight", BestHeight.Value);
         }
-        this._lastHeight = this._currentHeight;
-        PlayerPrefs.SetFloat("lastHeight", this._lastHeight);
+        LastHeight.Value = CurrentHeight.Value;
+        PlayerPrefs.SetFloat("lastHeight", LastHeight.Value);
 
         PlayerPrefs.Save();
-        return true;
+
+        // set to be uninitialized
+        this.isInitialized = false;
     }
 
 }

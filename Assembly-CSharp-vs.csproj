@@ -76,6 +76,8 @@
      <Compile Include="Assets\Scripts\Singleton.cs" />
      <Compile Include="Assets\Scripts\SocialPlatformsManager.cs" />
      <Compile Include="Assets\Scripts\TutorialManager.cs" />
+     <Compile Include="Assets\Scripts\UniRx\Drag.cs" />
+     <Compile Include="Assets\Scripts\UniRx\ObservableTouchStartTrigger.cs" />
      <Compile Include="Assets\Scripts\UnityAdsManager.cs" />
      <Compile Include="Assets\UniRx\Examples\Sample01_ObservableWWW.cs" />
      <Compile Include="Assets\UniRx\Examples\Sample02_ObservableTriggers.cs" />

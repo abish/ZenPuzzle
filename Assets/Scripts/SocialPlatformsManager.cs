@@ -21,9 +21,9 @@ public class SocialPlatformsManager : Singleton<SocialPlatformsManager>
         {
             if (success)
             {
-                Debug.Log("Auth success");
-                Debug.Log(Social.localUser.userName);
-                Debug.Log(Social.localUser.id);
+                //Debug.Log("Auth success");
+                //Debug.Log(Social.localUser.userName);
+                //Debug.Log(Social.localUser.id);
                 this.isAuthenticated = true;
             }
             else
