@@ -28,12 +28,6 @@ public class GameManager : Singleton<GameManager> {
     // VS GAME
     //
 
-
-    void Start ()
-    {
-        Init ();
-    }
-
     void Update ()
     {
         if (this.isGameOver == false && this.isInitialized == false)
@@ -43,7 +37,7 @@ public class GameManager : Singleton<GameManager> {
     }
 
     // Note: If gameObject is not found (in case scene is not fully loaded), this function is called multiple times
-    public void Init () {
+    public override void Init () {
         this.currentTurn = 1;
 
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
@@ -71,8 +65,6 @@ public class GameManager : Singleton<GameManager> {
                 spawner.GetComponent<PieceSpawner>().Spawn(this.currentPieceName);
             }
         }
-
-        HeightManager.Instance.Init();
 
         // prepare unityads
         UnityAdsManager.GetInstance();

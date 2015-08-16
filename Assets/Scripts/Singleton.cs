@@ -41,6 +41,7 @@ public class Singleton<T> : MonoBehaviour where T:Singleton<T>
     {
         GameObject singleton = new GameObject(typeof(T).ToString());
         instance = singleton.AddComponent<T>();
+        instance.Init();
 
         DontDestroyOnLoad(singleton);
 
@@ -55,4 +56,5 @@ public class Singleton<T> : MonoBehaviour where T:Singleton<T>
 	{
 		applicationIsQuitting = true;
 	}
+	public virtual void Init () {}
 }

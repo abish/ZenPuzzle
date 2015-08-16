@@ -13,7 +13,7 @@ public class SocialPlatformsManager : Singleton<SocialPlatformsManager>
         Init();
     }
 
-	public void Init()
+	public override void Init()
     {
         if (this.isAuthenticated == true) return;
 
