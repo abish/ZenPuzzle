@@ -17,6 +17,7 @@ public class Piece : MonoBehaviour
     private float z = 1f;
     //distance between tap point and visible position of piece 
     private float yPositionBias;
+    private float thresholdDistanceToMove = 0.1f; // if position is moved more than this distance, dragged object is moved
 
     private bool isTouching = false;
     private Vector3 lastValidPosition = Vector3.zero;
@@ -64,6 +65,8 @@ public class Piece : MonoBehaviour
             }
             return Vector2.zero;//exception
         })
+        .Scan((prev, current) => Vector2.Distance(prev, current) < thresholdDistanceToMove ? prev : current)
+        .DistinctUntilChanged() // change position only when moved
         .Subscribe(
             position => {
                 Debug.Log(position);
