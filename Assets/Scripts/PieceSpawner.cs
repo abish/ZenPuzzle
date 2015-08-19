@@ -4,24 +4,24 @@ using System.Collections;
 public class PieceSpawner : MonoBehaviour {
 
     GameObject lastSpawnedObject;
-	public void Spawn (string pieceName)
-	{
+    public void Spawn (string pieceName)
+    {
         if (CanSpawn() == false) return;
 
-		// Spawn 
-		GameObject piecePrefab = Pieces.GetPiecePrefab(pieceName);
+        // Spawn 
+        GameObject piecePrefab = Pieces.GetPiecePrefab(pieceName);
         //Debug.Log (piecePrefab);
-		GameObject Piece = Instantiate(piecePrefab, transform.position, Quaternion.identity) as GameObject;
-		// spawned piece shouldn't fall
-		Rigidbody2D rigidbody2D = Piece.GetComponent<Rigidbody2D>();
-		rigidbody2D.isKinematic = true;
+        GameObject Piece = Instantiate(piecePrefab, transform.position, Quaternion.identity) as GameObject;
+        // spawned piece shouldn't fall
+        Rigidbody2D rigidbody2D = Piece.GetComponent<Rigidbody2D>();
+        rigidbody2D.isKinematic = true;
 
-		Collider2D[] colliders  = Piece.GetComponents<Collider2D>();
-		foreach (Collider2D col in colliders) col.isTrigger = true;
+        Collider2D[] colliders  = Piece.GetComponents<Collider2D>();
+        foreach (Collider2D col in colliders) col.isTrigger = true;
 
         lastSpawnedObject = Piece;
-		//Debug.Log("Spawn!");
-	}
+        //Debug.Log("Spawn!");
+    }
 
     public GameObject GetNotMovedPiece ()
     {
@@ -49,12 +49,13 @@ public class PieceSpawner : MonoBehaviour {
         lastSpawnedObject = null;
     }
 
-    public void MoveUpward (float yPosition)
+    public void MoveUpward (float yPositionDiff)
     {
-        Vector3 spawnerPosition = new Vector3(transform.position.x, yPosition, transform.position.z);
+        Vector3 spawnerPosition = new Vector3(transform.position.x, transform.position.y + yPositionDiff, transform.position.z);
         transform.position = spawnerPosition;
         if (GetNotMovedPiece() == null) return;
 
+        // Move Draggable Piece
         lastSpawnedObject.transform.position = spawnerPosition;
     }
 }

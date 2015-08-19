@@ -33,10 +33,6 @@ public class Piece : MonoBehaviour
     public AudioClip hitSound;
     private AudioSource _audio;
 
-    // threshold to move camera
-    private float yThresholdViewport = 0.60f;
-    private float yThresholdPosition;
-
     void Start () {
         yPositionBias = - Screen.height * 0.1f;
 
@@ -92,9 +88,6 @@ public class Piece : MonoBehaviour
         Collider2D[] colliders  = GetComponents<Collider2D>();
         foreach (Collider2D col in colliders) col.isTrigger = false;
 
-        Vector3 positionDiff = Camera.main.ViewportToWorldPoint(new Vector3(0, yThresholdViewport, 0));
-        yThresholdPosition = positionDiff.y;
-
         // For velocity observation
         this.gameObject.UpdateAsObservable()
         .SkipUntil( Observable.Timer(TimeSpan.FromSeconds(velocityCheckDelay)) )// timer
@@ -104,10 +97,6 @@ public class Piece : MonoBehaviour
             Debug.Log(x);
             Pieces.Instance.UnLock(); // Unlock when fixed
             HeightManager.Instance.UpdateCurrentHeight(transform.position.y);
-
-            // move camera and background image if piece is high enough
-            if (transform.position.y > yThresholdPosition)
-                Camera.main.GetComponent<CameraController>().MoveUpward();
 
             GameManager.Instance.GoToNextTurn();
         });

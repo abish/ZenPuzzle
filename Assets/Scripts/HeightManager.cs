@@ -3,7 +3,8 @@ using UnityEngine;
 using System.Collections;
 using UniRx;
 
-public class HeightManager : Singleton<HeightManager> {
+public class HeightManager : Singleton<HeightManager>
+{
     // for leaderboard score type is To 2 decimals
     public float geta = 4.5f;// startPoint.transform.position.y * -1
     public int multiplier = 100;
@@ -14,7 +15,8 @@ public class HeightManager : Singleton<HeightManager> {
     private bool isInitialized  = false;
     public float initialHeight = -4.5f;
 
-    public override void Init () {
+    public override void Init ()
+    {
         BestHeight    = new ReactiveProperty<float>(initialHeight);
         LastHeight    = new ReactiveProperty<float>(initialHeight);
         CurrentHeight = new ReactiveProperty<float>(initialHeight);
@@ -23,17 +25,23 @@ public class HeightManager : Singleton<HeightManager> {
         this.isInitialized = true;
     }
 
-    public float GetBestHeight () {
+    public float GetBestHeight ()
+    {
         if (this.isInitialized == false) this.Init();
         return BestHeight.Value;
     }
-    public float GetLastHeight () {
+
+    public float GetLastHeight ()
+    {
         if (this.isInitialized == false) this.Init();
         return LastHeight.Value;
     }
-    public int GetCurrentHeightForLeaderboard () {
+
+    public int GetCurrentHeightForLeaderboard ()
+    {
         return (int)(this.multiplier * (CurrentHeight.Value + this.geta));
     }
+
     public void DeleteAll ()
     {
         PlayerPrefs.DeleteKey("bestHeight");
@@ -44,6 +52,7 @@ public class HeightManager : Singleton<HeightManager> {
     {
         if (PlayerPrefs.HasKey("bestHeight"))
             BestHeight.Value = PlayerPrefs.GetFloat("bestHeight");
+
         if (PlayerPrefs.HasKey("lastHeight"))
             LastHeight.Value = PlayerPrefs.GetFloat("lastHeight");
     }
@@ -64,6 +73,7 @@ public class HeightManager : Singleton<HeightManager> {
             BestHeight.Value = CurrentHeight.Value;
             PlayerPrefs.SetFloat("bestHeight", BestHeight.Value);
         }
+
         LastHeight.Value = CurrentHeight.Value;
         PlayerPrefs.SetFloat("lastHeight", LastHeight.Value);
 
