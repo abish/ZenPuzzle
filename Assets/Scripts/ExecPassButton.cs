@@ -9,8 +9,6 @@ public class ExecPassButton : MonoBehaviour {
         bool result = PassCountManager.Instance.ExecPass();
 
         if (result == true)
-        {
             GameManager.Instance.ExecPlayerPass();
-        }
     }
 }

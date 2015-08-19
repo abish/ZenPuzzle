@@ -5,13 +5,8 @@ using System;
 
 public class Piece : MonoBehaviour
 {
-
     // true if this piece is draggable
     private bool canDrag = true;
-
-    //private bool hasLock = false;
-    // true if this piece is correctly placed and next player should place next piece
-    //private bool isFixed = false;
 
     // position
     private float z = 1f;
@@ -33,12 +28,12 @@ public class Piece : MonoBehaviour
     public AudioClip hitSound;
     private AudioSource _audio;
 
-    void Start () {
-        yPositionBias = - Screen.height * 0.1f;
+    void Start ()
+    {
+        yPositionBias = - Screen.height * 0.1f; // TODO magic number
 
-        // DragAndDropOnce
-        // TODO: OnMouse**AsObservable is not available for iOS,Andriod build.
-        // Should find way to use Input.Touches instead
+        // Tatch start
+        // Note: OnMouse**AsObservable is not available for iOS,Andriod build.
         this.gameObject.AddComponent<ObservableTouchStartTrigger>().TouchStartAsObservable()
         .Where(x => canDrag && Pieces.Instance.GetLock()) // GetLock returns true if success. only one piece is draggable at a time
         .Subscribe(touch =>
@@ -47,7 +42,7 @@ public class Piece : MonoBehaviour
         });
     }
 
-    // TODO should find way to pass finger id
+    // Move piece while dragging
     void SubscribeDragStream(int fingerId)
     {
         this.UpdateAsObservable()
@@ -64,7 +59,8 @@ public class Piece : MonoBehaviour
         .Scan((prev, current) => Vector2.Distance(prev, current) < thresholdDistanceToMove ? prev : current)
         .DistinctUntilChanged() // change position only when moved
         .Subscribe(
-            position => {
+            position =>
+            {
                 Debug.Log(position);
                 TryUpdateLastValidPosition(position);
                 transform.position = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y + yPositionBias, z));
@@ -73,8 +69,10 @@ public class Piece : MonoBehaviour
         );
     }
 
+    // TODO can merge with isTouching stream
     void TryUpdateLastValidPosition (Vector2 position)
     {
+        // update when not initialized or piece is not touching other pieces
         if (lastValidPosition.z != z || isTouching == false)
             lastValidPosition = new Vector3(position.x, position.y + yPositionBias, z);
     }

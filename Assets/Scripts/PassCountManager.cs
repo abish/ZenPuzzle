@@ -2,15 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PassCountManager : Singleton<PassCountManager> {
+public class PassCountManager : Singleton<PassCountManager>
+{
+    [SerializeField]
+    public  int maxPassCount = 3;
+    private int passCountRecoverInterval = 300;//sec
+    private int _passCountRecoveredAt = -1;//epoch time
+    private bool isDirty = true;//epoch time
 
-	[SerializeField]
-	public  int maxPassCount = 3;
-	private int passCountRecoverInterval = 300;//sec
-	private int _passCountRecoveredAt = -1;//epoch time
-	private bool isDirty = true;//epoch time
-
-    public int GetPassCountRecoveredAt () {
+    public int GetPassCountRecoveredAt ()
+    {
         // Initialize
         if (this._passCountRecoveredAt == -1 || this.isDirty == true)
         {
@@ -21,8 +22,8 @@ public class PassCountManager : Singleton<PassCountManager> {
         return this._passCountRecoveredAt;
     }
 
-
-    public int RestTimeToRecoverAll () {
+    public int RestTimeToRecoverAll ()
+    {
         int now = DateUtil.GetEpochTime();
         int passCountRecoveredAt = this.GetPassCountRecoveredAt();
         // already recovered or never used before
@@ -32,7 +33,8 @@ public class PassCountManager : Singleton<PassCountManager> {
        return passCountRecoveredAt - now; 
     }
 
-    public int RestTimeToRecoverOne () {
+    public int RestTimeToRecoverOne ()
+    {
         int restTimeToRecoverAll = this.RestTimeToRecoverAll();
         if (restTimeToRecoverAll <= 0)
             return 0;
@@ -41,7 +43,8 @@ public class PassCountManager : Singleton<PassCountManager> {
     }
 
 
-    public int GetValidPassCount () {
+    public int GetValidPassCount ()
+    {
         int restTimeToRecoverAll = this.RestTimeToRecoverAll();
         if (restTimeToRecoverAll <= 0)
             return this.maxPassCount;
@@ -53,13 +56,15 @@ public class PassCountManager : Singleton<PassCountManager> {
         return recoveredPassCount;
     }
 
-    public bool CanExecPass () {
+    public bool CanExecPass ()
+    {
        return this.GetValidPassCount() > 0;
     }
 
 
     // return true when success. return false if not
-    public bool ExecPass () {
+    public bool ExecPass ()
+    {
         if (this.CanExecPass() == false)
             return false;
     
@@ -85,6 +90,7 @@ public class PassCountManager : Singleton<PassCountManager> {
     {
         this.RecoverPassCount(1);
     }
+
     public void RecoverPassCount (int count)
     {
         if (count <= 0)

@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ScoreManager : Singleton<ScoreManager> {
+public class ScoreManager : Singleton<ScoreManager>
+{
 
     // TODO validation
-	[SerializeField]
-	private int _bestScore   = -1;
-	private int _secondScore = -1;
-	private int _thirdScore  = -1;
+    [SerializeField]
+    private int _bestScore   = -1;
+    private int _secondScore = -1;
+    private int _thirdScore  = -1;
 
     public int GetBestScore () {
         return this._bestScore;

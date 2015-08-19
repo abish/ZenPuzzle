@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TutorialManager : MonoBehaviour {
+public class TutorialManager : MonoBehaviour
+{
 
     public GameObject dragArrow;
     private int createdAt;
@@ -14,12 +15,11 @@ public class TutorialManager : MonoBehaviour {
         createdAt = DateUtil.GetEpochTime();
     }
 
+    // UniRxに変えたい
     void Update ()
     {
         if (isTutorialRequired)
-        {
             EnableDragArrowAnimation();
-        }
     }
 
     // should use event "goToNextTurn"

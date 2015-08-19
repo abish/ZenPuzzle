@@ -8,12 +8,12 @@ public class SocialPlatformsManager : Singleton<SocialPlatformsManager>
     private string leaderboardID = "1";
     private bool isAuthenticated = false;
 
-	public void Awake ()
+    public void Awake ()
     {
         Init();
     }
 
-	public override void Init()
+    public override void Init()
     {
         if (this.isAuthenticated == true) return;
 
@@ -32,7 +32,7 @@ public class SocialPlatformsManager : Singleton<SocialPlatformsManager>
                 this.isAuthenticated = false;
             }
         });
-	}
+    }
 
     public bool IsAuthenticated ()
     {

@@ -9,7 +9,6 @@ public class GameManager : Singleton<GameManager> {
     private int currentTurn = 1;// == score
     private bool isGameOver      = false;
     private bool isInitialized   = false;
-
     private bool isSingleMode = true;
 
     private GameObject[] spawners;
@@ -31,13 +30,12 @@ public class GameManager : Singleton<GameManager> {
     void Update ()
     {
         if (this.isGameOver == false && this.isInitialized == false)
-        {
             Init();
-        }
     }
 
-    // Note: If gameObject is not found (in case scene is not fully loaded), this function is called multiple times
-    public override void Init () {
+    // Note: If gameObject is not found at first call (in case scene is not fully loaded), this function is called multiple times
+    public override void Init ()
+    {
         this.currentTurn = 1;
 
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
@@ -109,7 +107,6 @@ public class GameManager : Singleton<GameManager> {
             this.currentPieceName = (isPlayerTurn) ? nextEnemyPieceName : nextPlayerPieceName;
 
             // only one spawner exists 
-            // TODO: check
             // spawn next piece
             foreach (GameObject spawner in spawners)
             {
@@ -126,9 +123,6 @@ public class GameManager : Singleton<GameManager> {
                 this.nextPlayerPieceName = Pieces.LotPieceName();
             }
         }
-
-
-        // TODO event to notify ugui
 
         // next turn has come
         currentTurn++;
@@ -172,8 +166,6 @@ public class GameManager : Singleton<GameManager> {
             {
                 // delete current pieces
                 spawner.GetComponent<PieceSpawner>().DestroyNotMovedPiece();
-                //GameObject notMovedPiece = spawner.GetComponent<PieceSpawner>().GetNotMovedPiece();
-                //if (notMovedPiece) Destroy(notMovedPiece);
 
                 // create next pieces
                 string pieceName = Pieces.LotPieceName();
@@ -196,7 +188,8 @@ public class GameManager : Singleton<GameManager> {
 
     //
     // VS GAME
-    public bool IsPlayerTurn () {
+    public bool IsPlayerTurn ()
+    {
         bool isPlayerTurn = this.currentTurn % 2 == 1;
         if (this.isPlayerGoFirst == false) isPlayerTurn = !isPlayerTurn;
 

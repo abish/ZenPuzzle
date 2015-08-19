@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ResetPlayerPrefsButton : MonoBehaviour {
-
-
-	public void Reset ()
-	{
+public class ResetPlayerPrefsButton : MonoBehaviour
+{
+    public void Reset ()
+    {
         //PlayerPrefs.DeleteAll();
         PlayerPrefs.DeleteKey("passCountRecoveredAt");
-		PassCountManager.Instance.SetDirty();
-		ScoreManager.Instance.DeleteAll();
-		ScoreManager.Instance.Reload();
-	}
+        PassCountManager.Instance.SetDirty();
+        ScoreManager.Instance.DeleteAll();
+        ScoreManager.Instance.Reload();
+    }
 }

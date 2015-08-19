@@ -35,9 +35,7 @@ namespace UniRx.Triggers
         protected override void RaiseOnCompletedOnDestroy()
         {
             if (touchStart != null)
-            {
                 touchStart.OnCompleted();
-            }
         }
     }
 }

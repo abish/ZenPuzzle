@@ -2,64 +2,61 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Pieces : Singleton<Pieces> {
-
+public class Pieces : Singleton<Pieces>
+{
     private bool isLocked = false;
 
-	// TODO create piece name accessor if necessary
-	public string[] pieceList = new string[] {
-		"Zen1", "Zen2", "Zen3", "Zen4", "Zen5", "Zen6", "Zen7", "Zen8", "Zen9", "Zen10"
-	};
+    // TODO create piece name accessor if necessary
+    public string[] pieceList = new string[] {
+        "Zen1", "Zen2", "Zen3", "Zen4", "Zen5", "Zen6", "Zen7", "Zen8", "Zen9", "Zen10"
+    };
 
-	public Dictionary<string,float> weightMap = new Dictionary<string,float>() {
-		{"Zen1",  20f},
-		{"Zen2",  10f},
-		{"Zen3",  20f},
-		{"Zen4",  20f},
-		{"Zen5",  10f},
-		{"Zen6",  20f},
-		{"Zen7",  10f},
-		{"Zen8",  5f},
-		{"Zen9",  10f},
-		{"Zen10", 20f},
-	};
-	private string defaultPiece = "Stick";
+    public Dictionary<string,float> weightMap = new Dictionary<string,float>() {
+        {"Zen1",  20f},
+        {"Zen2",  10f},
+        {"Zen3",  20f},
+        {"Zen4",  20f},
+        {"Zen5",  10f},
+        {"Zen6",  20f},
+        {"Zen7",  10f},
+        {"Zen8",  5f},
+        {"Zen9",  10f},
+        {"Zen10", 20f},
+    };
+    private string defaultPiece = "Zen1";
 
-	private Dictionary<string, GameObject> _prefabCache;
-	public void Awake ()
-	{
-		this._prefabCache = new Dictionary<string, GameObject>();
-	}
+    private Dictionary<string, GameObject> _prefabCache;
+    public void Awake ()
+    {
+        this._prefabCache = new Dictionary<string, GameObject>();
+    }
 
-	public static string LotPieceName ()
-	{
-	    float weightSum = 0f;
+    public static string LotPieceName ()
+    {
+        float weightSum = 0f;
         Pieces instance = Pieces.Instance as Pieces;
-		foreach ( float weight in instance.weightMap.Values )
-		{
-			weightSum += weight;
-		}
+        foreach ( float weight in instance.weightMap.Values )
+        {
+            weightSum += weight;
+        }
 
-		float rnd = Random.Range(0, weightSum); 
-		foreach( KeyValuePair<string, float> kvp in instance.weightMap )
-		{
-			if (rnd <= kvp.Value)
-			{
-				return kvp.Key;
-			}
+        float rnd = Random.Range(0, weightSum); 
+        foreach( KeyValuePair<string, float> kvp in instance.weightMap )
+        {
+            if (rnd <= kvp.Value)
+                return kvp.Key;
 
-			rnd -= kvp.Value;
-		}
+            rnd -= kvp.Value;
+        }
 
-		return instance.defaultPiece;
-	}
+        return instance.defaultPiece;
+    }
 
-
-	public static GameObject LotPiece ()
-	{
-		string pieceName = LotPieceName();
+    public static GameObject LotPiece ()
+    {
+        string pieceName = LotPieceName();
         return GetPiecePrefab(pieceName);
-	}
+    }
 
     public static GameObject GetPiecePrefab (string pieceName)
     {
@@ -83,9 +80,8 @@ public class Pieces : Singleton<Pieces> {
     public override void OnDestroy()
     {
         if (this._prefabCache != null)
-        {
             this._prefabCache.Clear();
-        }
+
         base.OnDestroy();
     }
 
@@ -96,6 +92,7 @@ public class Pieces : Singleton<Pieces> {
     {
         return this.isLocked;
     }
+
     public bool GetLock()
     {
         // cannot get lock if already locked

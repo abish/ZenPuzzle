@@ -11,16 +11,15 @@ public class Drag
         {
             foreach (Touch touch in Input.touches)
             {
-                if (touch.fingerId == fingerId)
+                if (touch.fingerId != fingerId) continue;
+
+                switch (touch.phase)
                 {
-                    switch (touch.phase)
-                    {
-                        case TouchPhase.Canceled:
-                        case TouchPhase.Ended:
-                            return true;
-                        default:
-                            return false;
-                    }
+                    case TouchPhase.Canceled:
+                    case TouchPhase.Ended:
+                        return true;
+                    default:
+                        return false;
                 }
             }
 
