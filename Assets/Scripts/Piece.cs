@@ -19,7 +19,8 @@ public class Piece : MonoBehaviour
 
     // fix check
     private float velocityCheckDelay = 0.5f; // [sec] wait this time and start velocity check
-    private float maxAllowedVelocity = 0f; // will be fixed when velocity is below this value
+    private float velocityCheckMaxTime = 3.0f; // [sec] piece is fixed regardless of velocity after this time
+    private float maxAllowedVelocity = 0.0001f; // will be fixed when velocity is below this value
 
     // sound
     private int minVelocityForSound = 1;
@@ -88,11 +89,11 @@ public class Piece : MonoBehaviour
 
         // For velocity observation
         this.gameObject.UpdateAsObservable()
+        .TakeUntil( Observable.Timer(TimeSpan.FromSeconds(velocityCheckMaxTime)) )// piece is fixed regardless of velocity after this time
         .SkipUntil( Observable.Timer(TimeSpan.FromSeconds(velocityCheckDelay)) )// timer
         .Where(x => GetComponent<Rigidbody2D>().velocity.magnitude <= maxAllowedVelocity)// velocity is small enough
-        .First()
-        .Subscribe(x => {
-            Debug.Log(x);
+        .FirstOrDefault()// Firstで、streamがこないとexception吐くのでFirstOrDefaultに変更
+        .Subscribe(x => {}, () => {
             Pieces.Instance.UnLock(); // Unlock when fixed
             HeightManager.Instance.UpdateCurrentHeight(transform.position.y);
 

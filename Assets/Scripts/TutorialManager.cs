@@ -13,7 +13,7 @@ public class TutorialManager : MonoBehaviour
         // For velocity observation
         this.gameObject.UpdateAsObservable()
         .SkipUntil( Observable.Timer(TimeSpan.FromSeconds(animationStartAt)) )// timer
-        .First()
+        .FirstOrDefault()
         .Subscribe(x  =>
         {
             dragArrow.SetActive(true);
@@ -21,7 +21,7 @@ public class TutorialManager : MonoBehaviour
             // stop animation when turn > 1
             this.gameObject.UpdateAsObservable()
             .Where(s => GameManager.Instance.CurrentTurn() > 1)// show tutorial only in first turn
-            .First()
+            .FirstOrDefault()
             .Subscribe(s => {dragArrow.SetActive(false);});
         });
     }
