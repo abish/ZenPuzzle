@@ -1,33 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UniRx;
+using UniRx.Triggers; // need UniRx.Triggers namespace for extend gameObejct
 
 public class PassCountView : MonoBehaviour
 {
-    int _validPassCount = 0; // turn = stone num = karma
-
     void Start () {
-        int validPassCount = PassCountManager.Instance.GetValidPassCount();
-        _validPassCount = validPassCount;
-
-        updateText();
+        this.gameObject.UpdateAsObservable()
+        .Select(x => PassCountManager.Instance.GetValidPassCount())
+        .DistinctUntilChanged()
+        .Subscribe(passCount => { updateText(passCount); }
+        );
     }
 
-    // TODO use UniRx
-    void Update () {
-        int validPassCount = PassCountManager.Instance.GetValidPassCount();
-        if (validPassCount == _validPassCount)
-            return;
-
-        // update if turn changed
-        _validPassCount = validPassCount;
-        updateText();
-    }
-
-    void updateText()
+    void updateText(int passCount)
     {
         int maxPassCount = PassCountManager.Instance.maxPassCount;
-        string _text = _validPassCount + "/" + maxPassCount;
+        string _text = passCount + "/" + maxPassCount;
         GetComponent<Text>().text = _text;
     }
 }
