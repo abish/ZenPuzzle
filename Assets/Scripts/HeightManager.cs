@@ -41,6 +41,10 @@ public class HeightManager : Singleton<HeightManager>
     {
         return (int)(this.multiplier * (CurrentHeight.Value + this.geta));
     }
+    public float GetHeightForView (float height)
+    {
+        return height + this.geta;
+    }
 
     public void DeleteAll ()
     {

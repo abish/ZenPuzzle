@@ -1,40 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UniRx;
 
-// Required only in VS game
 public class ScoreView : MonoBehaviour
 {
-    int previousTurn    = 0; // turn = stone num = karma
-    int _validPassCount = 0; // turn = stone num = karma
-
     void Start ()
     {
-        int currentTurn    = GameManager.Instance.CurrentTurn();
-        int validPassCount = PassCountManager.Instance.GetValidPassCount();
-        previousTurn    = currentTurn;
-        _validPassCount = validPassCount;
-
-        updateText();
+        HeightManager.Instance.CurrentHeight
+        .Select(height => HeightManager.Instance.GetHeightForView(height))// height => height + geta
+        .Subscribe(height => updateText(height));
     }
 
-    // TODO use UniRx
-    void Update ()
+    void updateText(float height)
     {
-        int currentTurn    = GameManager.Instance.CurrentTurn();
-        int validPassCount = PassCountManager.Instance.GetValidPassCount();
-        if (currentTurn == previousTurn && validPassCount == _validPassCount)
-            return;
-
-        // update if turn changed
-        previousTurn    = currentTurn;
-        _validPassCount = validPassCount;
-        updateText();
-    }
-
-    void updateText()
-    {
-        string _text = "" + previousTurn;
-        GetComponent<Text>().text = _text;
+        GetComponent<Text>().text = height.ToString("F1") + "m";
     }
 }
