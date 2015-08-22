@@ -1,47 +1,28 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using UniRx;
+using UniRx.Triggers; // need UniRx.Triggers namespace for extend gameObejct
 
 public class TutorialManager : MonoBehaviour
 {
-
     public GameObject dragArrow;
-    private int createdAt;
-    // should create class for each tutorial
     public int animationStartAt = 3;
-    private bool isTutorialRequired = true;
-    private bool isTutorialStarted = false;
 
-    void Awake () {
-        createdAt = DateUtil.GetEpochTime();
-    }
-
-    // UniRxに変えたい
-    void Update ()
-    {
-        if (isTutorialRequired)
-            EnableDragArrowAnimation();
-    }
-
-    // should use event "goToNextTurn"
-    public void EnableDragArrowAnimation ()
-    {
-        // show animation only when turn <= 1
-        if (GameManager.Instance.CurrentTurn() > 1)
-        {
-            isTutorialRequired = false;
-            dragArrow.SetActive(false);
-            return;
-        }
-
-        if (isTutorialStarted) return;
-
-        int now = DateUtil.GetEpochTime();
-        // show animation when time >= createdAt + 3 sec
-        if (now >= createdAt + animationStartAt)
+    void Start () {
+        // For velocity observation
+        this.gameObject.UpdateAsObservable()
+        .SkipUntil( Observable.Timer(TimeSpan.FromSeconds(animationStartAt)) )// timer
+        .First()
+        .Subscribe(x  =>
         {
             dragArrow.SetActive(true);
-            isTutorialStarted = true;
-        }
-    }
 
+            // stop animation when turn > 1
+            this.gameObject.UpdateAsObservable()
+            .Where(s => GameManager.Instance.CurrentTurn() > 1)// show tutorial only in first turn
+            .First()
+            .Subscribe(s => {dragArrow.SetActive(false);});
+        });
+    }
 }

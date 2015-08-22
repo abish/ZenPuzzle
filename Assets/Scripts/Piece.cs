@@ -45,7 +45,7 @@ public class Piece : MonoBehaviour
     // Move piece while dragging
     void SubscribeDragStream(int fingerId)
     {
-        this.UpdateAsObservable()
+        this.gameObject.UpdateAsObservable()
         .TakeUntil(Drag.TouchUpStream(fingerId))
         .Select(_ => 
         {
