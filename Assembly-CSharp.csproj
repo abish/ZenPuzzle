@@ -53,11 +53,8 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameView\BestHeightView.cs" />
      <Compile Include="Assets\Scripts\GameView\CurrentHeightView.cs" />
-     <Compile Include="Assets\Scripts\GameView\CurrentLabelView.cs" />
-     <Compile Include="Assets\Scripts\GameView\EnemyNextPieceImageView.cs" />
      <Compile Include="Assets\Scripts\GameView\LastHeightView.cs" />
      <Compile Include="Assets\Scripts\GameView\PassCountView.cs" />
-     <Compile Include="Assets\Scripts\GameView\PlayerNextPieceImageView.cs" />
      <Compile Include="Assets\Scripts\GameView\ScoreView.cs" />
      <Compile Include="Assets\Scripts\HeightManager.cs" />
      <Compile Include="Assets\Scripts\PassCountManager.cs" />
