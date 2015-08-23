@@ -16,13 +16,14 @@ public class TutorialManager : MonoBehaviour
         .FirstOrDefault()
         .Subscribe(x  =>
         {
+            if (this.gameObject == null) return;
             dragArrow.SetActive(true);
 
             // stop animation when turn > 1
             this.gameObject.UpdateAsObservable()
             .Where(s => GameManager.Instance.CurrentTurn() > 1)// show tutorial only in first turn
             .FirstOrDefault()
-            .Subscribe(s => {dragArrow.SetActive(false);});
+            .Subscribe(s => {if (dragArrow != null) dragArrow.SetActive(false);});
         });
     }
 }
