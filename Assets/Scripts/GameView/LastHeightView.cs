@@ -15,7 +15,7 @@ public class LastHeightView : MonoBehaviour
         SetAnchor(rectTransform, lastHeightPosition.y);
 
         Camera.main.ObserveEveryValueChanged(x => x.transform.position.y)
-        .Select(height => Camera.main.WorldToViewportPoint(new Vector3(0, HeightManager.Instance.BestHeight.Value, 0)).y)
+        .Select(height => Camera.main.WorldToViewportPoint(new Vector3(0, HeightManager.Instance.LastHeight.Value, 0)).y)
         .Subscribe(viewportHeight => SetAnchor(rectTransform, viewportHeight));
     }
 
